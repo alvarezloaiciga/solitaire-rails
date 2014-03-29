@@ -1,0 +1,19 @@
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+<% end -%>
+
+<%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
+
+<%= form_for @game, url: move_card_path, method: :post do |f| %>
+  <%= hidden_field_tag "origin[card_id]" %>
+  <%= hidden_field_tag "origin[column_id]" %>
+  <%= hidden_field_tag "destiny[card_id]" %>
+  <%= hidden_field_tag "destiny[column_id]" %>
+  <%= f.submit "Move Card(s)" %>
+<% end %>
+
+<div id="movement">
+  <span id="origin"></span> <span id="destiny"></span>
+</div>
+
+<%= javascript_include_tag 'game' %>
