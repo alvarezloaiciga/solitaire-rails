@@ -15,8 +15,21 @@ class CardsTrain < ActiveRecord::Base
     end
   end
 
+  def remove_cards(cards)
+    self.cards.delete(cards)
+    if active_card_position == 0
+      update(active_card_position: nil)
+    else
+      decrement!(:active_card_position)
+    end
+  end
+
   def next_card!
     update(active_card_position: next_active_card_position)
+  end
+
+  def cards_from(card)
+    [card]
   end
 
   private

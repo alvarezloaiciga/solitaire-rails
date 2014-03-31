@@ -1,56 +1,78 @@
 $(".card").click(function(){
-  origin_card = $("#origin_card_id")
-  origin_column = $("#origin_column_id")
-
-  destiny_card = $("#destiny_card_id")
-  destiny_column = $("#destiny_column_id")
-
   number = $(this).text().trim();
-  card_id = $(this).attr('id');
-  column_id = $(this).parent().attr('id');
-
   if( number === "--"){
     alert("Sorry it's hidden");
   } else {
-    $(this).toggleClass("card-selected");
-    selectBelowCards($(this));
-
-    if($(this).hasClass("card-selected")){
-      if(origin_card.val()) {
-        destiny_card.val(card_id);
-        destiny_column.val(column_id);
-
-        $(this).after( $(".card-selected") );
-        $("#destiny").text(number);
-      } else {
-        origin_card.val(card_id);
-        origin_column.val(column_id);
-
-        $("#origin").text(number + " -> ");
-      }
-    } else {
-      if(destiny_card.val() == card_id) {
-        destiny_card.removeAttr('value')
-        destiny_column.removeAttr('value')
-        $("#destiny").text("");
-      } else {
-        origin_card.removeAttr('value')
-        origin_column.removeAttr('value')
-        $("#origin").text("");
-      }
-    }
+    selectRelevantCards($(this));
+    $(this).hasClass("card-selected") ? processSelectedCard($(this)) : deleteCard($(this));
   }
 });
+
+function processSelectedCard(card) {
+  if($("#origin_card_id").val()) {
+    createDestinyCardID(card);
+    moveOriginToDestiny(card);
+  } else {
+    createOriginCardID(card);
+  }
+};
+
+function deleteCard(card) {
+  destinyCardID = $("#destiny_card_id");
+  source =  (destinyCardID.val() == card.attr('id')) ? "destiny" : "origin"
+  deleteCardID("source");
+};
+
+function deleteCardID(source) {
+  cardID = $("#"+source+"_card_id");
+  columnID = $("#destiny_column_id");
+
+  cardID.removeAttr('value')
+  columnID.removeAttr('value')
+  $("#"+source).text("");
+};
+
+function createDestinyCardID(cardDiv) {
+  destinyCardID = $("#destiny_card_id");
+  destinyColumnID = $("#destiny_column_id");
+
+  destinyCardID.val(cardDiv.attr('id'));
+  destinyColumnID.val(cardDiv.parent().attr('id'));
+
+  $("#destiny").text(number);
+};
+
+function createOriginCardID(cardDiv) {
+  originCardID = $("#origin_card_id");
+  originColumnID = $("#origin_column_id");
+
+  originCardID.val(cardDiv.attr('id'));
+  originColumnID.val(cardDiv.parent().attr('id'));
+
+  $("#origin").text(number + " -> ");
+};
+
+function moveOriginToDestiny(destinyCard) {
+  originCard = $(".card-selected");
+  originCard.removeClass();
+  originCard.addClass("card card-selected");
+  destinyCard.after(originCard);
+};
 
 function style_children(parent, select) {
   parent.toggleClass("card-selected");
   parent.children().each(function() {
     style_children($(this));
   });
-}
+};
 
-function selectBelowCards(card){
+function selectRelevantCards(card){
+  card.toggleClass("card-selected");
   card.nextAll().each(function() {
     style_children($(this));
   });
-}
+};
+
+$("#train-card").click(function(){
+  $(this).toggleClass("train-card-selected");
+});

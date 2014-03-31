@@ -60,3 +60,36 @@ describe CardsTrain, "#next_card" do
     end
   end
 end
+
+describe CardsTrain, "#remove_cards" do
+  context "when it is the first card" do
+    let(:card) { Card.create }
+    subject { CardsTrain.create(cards: [card], active_card_position: 0) }
+
+    it "removes the cards from the cards array" do
+      subject.remove_cards([card])
+      expect(subject.cards.count).to eq 0
+    end
+
+    it "resets the active_card_position to nil" do
+      subject.remove_cards([card])
+      expect(subject.active_card_position).to be_nil
+    end
+  end
+
+  context "when it is a card in between" do
+    let(:card) { Card.create }
+    let(:card_2) { Card.create }
+    subject { CardsTrain.create(cards: [card, card_2], active_card_position: 1) }
+
+    it "removes the cards from the cards array" do
+      subject.remove_cards([card_2])
+      expect(subject.cards.count).to eq 1
+    end
+
+    it "decrements the active_card_position by 1" do
+      subject.remove_cards([card_2])
+      expect(subject.active_card_position).to eq 0
+    end
+  end
+end

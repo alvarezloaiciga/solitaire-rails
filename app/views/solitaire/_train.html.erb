@@ -4,10 +4,10 @@
   </div>
 
   <% if card = @game.cards_train.active_card %>
-    <div id="train-card">
+    <%= div_for card, class: "train-card" do %>
       <%= card.name %>
       <%= card.suit %>
-    </div>
+    <% end %>
   <% end %>
 </div>
 

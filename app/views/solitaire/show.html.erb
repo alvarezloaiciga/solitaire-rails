@@ -4,8 +4,6 @@
 
 <%= render partial: 'train' %>
 
-<%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
-
 <%= form_for @game, url: move_card_path, method: :post do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
   <%= hidden_field_tag "origin[column_id]" %>
@@ -13,6 +11,9 @@
   <%= hidden_field_tag "destiny[column_id]" %>
   <%= f.submit "Move Card(s)" %>
 <% end %>
+
+<%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
+
 
 <div id="movement">
   <span id="origin"></span> <span id="destiny"></span>

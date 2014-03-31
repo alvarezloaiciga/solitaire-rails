@@ -1,4 +1,5 @@
 require 'solitaire/game/card_mover'
+require 'solitaire/game/move_parser'
 
 class SolitaireController < ApplicationController
   def new
@@ -33,27 +34,7 @@ class SolitaireController < ApplicationController
 
   private
   def card_mover
-    origin_column = column(:origin)
-    destiny_column = column(:destiny)
-
-    origin_card = card(:origin, origin_column)
-    destiny_card = card(:destiny, destiny_column)
-
-    Solitaire::Game::CardMover.new(
-      origin:  { card: origin_card,  column: origin_column  },
-      destiny: { card: destiny_card, column: destiny_column }
-    )
-  end
-
-  # need to parse the hidden value that is feeder_line_column_<id>
-  def column(type)
-    column_id = params[type][:column_id].match(/feeder_line_column_(\d+)/) ? $1 : nil
-    @game.feeder_line.columns.find_by(id: column_id)
-  end
-
-  # need to parse the hidden value that is card_<id>
-  def card(type, column)
-    card_id = params[type][:card_id].match(/card_(\d+)/) ? $1 : nil
-    column.cards.find(card_id)
+    move = Solitaire::Game::MoveParser.new(@game, params)
+    Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)
   end
 end

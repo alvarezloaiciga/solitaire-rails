@@ -27,7 +27,7 @@ class FeederLineColumn < ActiveRecord::Base
   end
 
   def last_position
-    cards_feeder_line_columns.maximum(:position)
+    cards_feeder_line_columns.maximum(:position) || 0
   end
 
   def cards_from(card)
