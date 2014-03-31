@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329040912) do
+ActiveRecord::Schema.define(version: 20140331164404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20140329040912) do
     t.integer "position"
   end
 
+  create_table "cards_product_line_columns", force: true do |t|
+    t.integer "card_id"
+    t.integer "product_line_column_id"
+    t.integer "position"
+  end
+
   create_table "feeder_line_columns", force: true do |t|
     t.integer "feeder_line_id"
     t.integer "number"
@@ -37,6 +43,18 @@ ActiveRecord::Schema.define(version: 20140329040912) do
   add_index "feeder_line_columns", ["feeder_line_id"], name: "index_feeder_line_columns_on_feeder_line_id", using: :btree
 
   create_table "feeder_lines", force: true do |t|
+    t.integer "solitaire_game_id"
+  end
+
+  create_table "product_line_columns", force: true do |t|
+    t.integer "product_line_id"
+    t.integer "number"
+    t.integer "first_active_card_position"
+  end
+
+  add_index "product_line_columns", ["product_line_id"], name: "index_product_line_columns_on_product_line_id", using: :btree
+
+  create_table "product_lines", force: true do |t|
     t.integer "solitaire_game_id"
   end
 
