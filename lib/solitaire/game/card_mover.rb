@@ -57,10 +57,7 @@ module Solitaire
             false
           end
         else
-          destiny_red = RED_SUITS.include?(destiny_card.suit)
-          origin_red = RED_SUITS.include?(origin_card.suit)
-
-          destiny_card.value + 1 == origin_card.value && destiny_red == origin_red
+          destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit
         end
       end
 

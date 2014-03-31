@@ -18,10 +18,18 @@ class SolitaireController < ApplicationController
 
   def move_card
     @game = SolitaireGame.find(params[:id])
-    if card_mover_to_product.move_to_product_line
-      redirect_to game_show_path(@game)
-    else
-      redirect_to game_show_path(@game), alert: "You're stuck here!"
+    if params[:commit] == "Move Card(s)"
+      if card_mover.move_between_columns
+        redirect_to game_show_path(@game)
+      else
+        redirect_to game_show_path(@game), alert: "You're stuck here!"
+      end
+    elsif "Move Card(s) to Product Line"
+      if card_mover_to_product.move_to_product_line
+        redirect_to game_show_path(@game)
+      else
+        redirect_to game_show_path(@game), alert: "You're stuck here!"
+      end
     end
   end
 
@@ -73,7 +81,7 @@ class SolitaireController < ApplicationController
   end
 
   def card_product_line(type, column)
-    if !column.cards.empty?
+    if column.cards.count > 0
       card_id = params[type][:card_id].match(/card_(\d+)/) ? $1 : nil
       column.cards.find(card_id)
     else

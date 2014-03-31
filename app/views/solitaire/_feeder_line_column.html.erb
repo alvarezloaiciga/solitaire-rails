@@ -1,6 +1,6 @@
 <%= div_for column, class: "feed-line-column" do %>
   <%= column.number %>
-  <% column.cards_feeder_line_columns.each do |card_feed| %>
+  <% column.cards_feeder_line_columns.order("feeder_line_column_id ASC").each do |card_feed| %>
     <%= div_for card_feed.card, class: "card" do |card| %>
       <% if card_feed.position >= column.first_active_card_position %>
         <%= card.name %>
