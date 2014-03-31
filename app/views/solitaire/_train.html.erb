@@ -1,6 +1,8 @@
 <div id="train">
   <div id="train-deck">
-    <h2>Train</h2>
+    <%= form_for @game, url: next_card_path, method: :post do |f| %>
+      <%= f.submit "Next Card", id: "next-card-form-button" %>
+    <% end %>
   </div>
 
   <% if card = @game.cards_train.active_card %>
@@ -10,7 +12,3 @@
     <% end %>
   <% end %>
 </div>
-
-<%= form_for @game, url: next_card_path, method: :post do |f| %>
-  <%= f.submit "Next Card" %>
-<% end %>

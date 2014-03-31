@@ -26,3 +26,14 @@
 .train-card-selected {
   background-color: red !important;
 }
+
+#train-deck form{
+  height: 100%;
+}
+
+#next-card-form-button {
+  height: 100%;
+  width: 100%;
+  background-color: yellow;
+  border: none;
+}
