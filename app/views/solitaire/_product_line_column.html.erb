@@ -1,6 +1,19 @@
 <%= div_for column, class: "product-line-column" do %>
   <%= column.number %>
+  <% if !column.cards_product_line_columns.empty? %>
+    <% column.cards_product_line_columns.each do |card_product| %>
+      <%= div_for card_product.card, class: "card" do |card| %>
+        <% if card_product.position >= column.first_active_card_position %>
+          <%= card.name %>
+          <%= card.suit %>
+        <% else %>
+           --
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
     <%= div_for column, class: "card" do |card| %>
           Empty
     <% end %>
+  <% end %>
 <% end %>

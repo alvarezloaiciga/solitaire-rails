@@ -18,7 +18,7 @@ class SolitaireController < ApplicationController
 
   def move_card
     @game = SolitaireGame.find(params[:id])
-    if card_mover.move_between_columns
+    if card_mover_to_product.move_to_product_line
       redirect_to game_show_path(@game)
     else
       redirect_to game_show_path(@game), alert: "You're stuck here!"
@@ -51,6 +51,33 @@ class SolitaireController < ApplicationController
   # need to parse the hidden value that is card_<id>
   def card(type, column)
     card_id = params[type][:card_id].match(/card_(\d+)/) ? $1 : nil
-    column.cards.find(card_id)
+    column.cards.find_by(id: card_id)
+  end
+
+  def card_mover_to_product
+    origin_column = column(:origin)
+    destiny_column = column_product_line(:destiny)
+    
+    origin_card = card(:origin, origin_column)
+    destiny_card = card_product_line(:destiny, destiny_column)
+
+    Solitaire::Game::CardMover.new(
+      origin:  { card: origin_card,  column: origin_column  },
+      destiny: { card: destiny_card, column: destiny_column }
+    )
+  end
+
+  def column_product_line(type)
+    column_id = params[type][:column_id].match(/product_line_column_(\d+)/) ? $1 : nil
+    @game.product_line.columns.find_by(id: column_id)
+  end
+
+  def card_product_line(type, column)
+    if !column.cards.empty?
+      card_id = params[type][:card_id].match(/card_(\d+)/) ? $1 : nil
+      column.cards.find(card_id)
+    else
+      nil
+    end
   end
 end
