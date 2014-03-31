@@ -14,6 +14,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :test do
+  gem 'rspec-rails', '2.14.0'
+  gem 'factory_girl', '4.4.0'
+end
+
 group :development do
   gem "better_errors"
   gem "binding_of_caller"

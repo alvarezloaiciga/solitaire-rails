@@ -2,6 +2,8 @@
   <%= content_tag :div, msg, class: name %>
 <% end -%>
 
+<%= render partial: 'train' %>
+
 <%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
 
 <%= form_for @game, url: move_card_path, method: :post do |f| %>

@@ -25,7 +25,10 @@ class SolitaireController < ApplicationController
     end
   end
 
-  def change_card
+  def next_card
+    @game = SolitaireGame.find(params[:id])
+    @game.cards_train.next_card!
+    redirect_to game_show_path(@game)
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329040912) do
+ActiveRecord::Schema.define(version: 20140331165730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,20 @@ ActiveRecord::Schema.define(version: 20140329040912) do
     t.integer "value"
   end
 
+  create_table "cards_cards_trains", force: true do |t|
+    t.integer "card_id"
+    t.integer "cards_train_id"
+  end
+
   create_table "cards_feeder_line_columns", force: true do |t|
     t.integer "card_id"
     t.integer "feeder_line_column_id"
     t.integer "position"
+  end
+
+  create_table "cards_trains", force: true do |t|
+    t.integer "solitaire_game_id"
+    t.integer "active_card_position"
   end
 
   create_table "feeder_line_columns", force: true do |t|
