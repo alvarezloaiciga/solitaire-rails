@@ -1,0 +1,13 @@
+.product-line-column {
+  height: 500px;
+  width: 10%;
+  float: left;
+  margin: 0 2%;
+  text-align: center;
+}
+
+#product-line-container {
+  margin: 0 30px;
+  overflow: hidden;
+  text-align: center;
+}
