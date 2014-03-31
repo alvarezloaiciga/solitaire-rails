@@ -40,10 +40,6 @@ module Solitaire
         origin_column.cards_from(origin_card)
       end
 
-
-
-
-
       def move_to_product_line
         if able_to_move_to_product_line?
           move_to_product_line_column
@@ -55,7 +51,11 @@ module Solitaire
 
       def able_to_move_to_product_line?
         if destiny_card.nil?
-          true
+          if origin_card.value == 1
+            true
+          else
+            false
+          end
         else
           destiny_red = RED_SUITS.include?(destiny_card.suit)
           origin_red = RED_SUITS.include?(origin_card.suit)
