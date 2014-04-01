@@ -1,0 +1,14 @@
+<div id="train">
+  <div id="train-deck">
+    <%= form_for @game, url: next_card_path, method: :post do |f| %>
+      <%= f.submit "Next Card", id: "next-card-form-button" %>
+    <% end %>
+  </div>
+
+  <% if card = @game.cards_train.active_card %>
+    <%= div_for card, class: "train-card" do %>
+      <%= card.name %>
+      <%= card.suit %>
+    <% end %>
+  <% end %>
+</div>

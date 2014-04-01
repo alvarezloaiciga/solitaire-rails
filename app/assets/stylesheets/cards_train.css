@@ -1,0 +1,39 @@
+#train {
+  height: 160px;
+  margin: 0 30px;
+}
+
+#train-deck {
+  width: 120px;
+  height: 95%;
+  overflow: hidden;
+  background-color: yellow;
+  float: left;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.train-card {
+  margin-left: 20px !important;
+  width: 120px !important;
+  height: 95% !important;
+  background-color: orange !important;
+  float: left !important;
+  border-radius: 5px !important;
+  border: 1px solid black !important;
+}
+
+.train-card-selected {
+  background-color: red !important;
+}
+
+#train-deck form{
+  height: 100%;
+}
+
+#next-card-form-button {
+  height: 100%;
+  width: 100%;
+  background-color: yellow;
+  border: none;
+}

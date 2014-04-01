@@ -23,5 +23,5 @@
 }
 
 .card-selected {
-  background-color: red;
+  background-color: red !important;
 }

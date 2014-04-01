@@ -1,4 +1,5 @@
 require 'solitaire/game/card_mover'
+require 'solitaire/game/move_parser'
 
 class SolitaireController < ApplicationController
   def new
@@ -16,28 +17,16 @@ class SolitaireController < ApplicationController
     @game = SolitaireGame.find(params[:id])
   end
 
-  def move_card
+  def move_card 
     @game = SolitaireGame.find(params[:id])
-    if params[:commit] == "Move Card(s)"
-      move_to_feeder_line
-    elsif params[:commit] == "Move Card(s) to Product Line" && !params[:origin][:column_id].match(/feeder_line_column_(\d+)/).nil? 
-      move_to_product_line
-    elsif params[:commit] == "Move Card(s) to Feeder Line" && !params[:destiny][:column_id].match(/feeder_line_column_(\d+)/).nil? 
-      move_from_product_line
-    else
-      redirect_to game_show_path(@game), alert: "You're stuck here!"
-    end
-  end
-
-  def move_to_feeder_line
-    if card_mover.move_between_columns
+     if card_mover.move_between_columns
         redirect_to game_show_path(@game)
       else
         redirect_to game_show_path(@game), alert: "You're stuck here!"
-    end
+     end
   end
 
-  def move_to_product_line
+  def move_to_product_line # Codigo nosotras
     if card_mover_to_product.move_to_product_line
         redirect_to game_show_path(@game)
       else
@@ -45,7 +34,7 @@ class SolitaireController < ApplicationController
     end
   end
 
-  def move_from_product_line
+  def move_from_product_line # Codigo nosotras
     if card_mover_from_product.move_to_product_line
         redirect_to game_show_path(@game)
       else
@@ -53,21 +42,16 @@ class SolitaireController < ApplicationController
     end
   end
 
-  def change_card
+  def next_card
+    @game = SolitaireGame.find(params[:id])
+    @game.cards_train.next_card!
+    redirect_to game_show_path(@game)
   end
 
   private
   def card_mover
-    origin_column = column(:origin)
-    destiny_column = column(:destiny)
-
-    origin_card = card(:origin, origin_column)
-    destiny_card = card(:destiny, destiny_column)
-
-    Solitaire::Game::CardMover.new(
-      origin:  { card: origin_card,  column: origin_column  },
-      destiny: { card: destiny_card, column: destiny_column }
-    )
+    move = Solitaire::Game::MoveParser.new(@game, params)
+    Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)
   end
 
   # need to parse the hidden value that is feeder_line_column_<id>
@@ -85,7 +69,7 @@ class SolitaireController < ApplicationController
   def card_mover_to_product
     origin_column = column(:origin)
     destiny_column = column_product_line(:destiny)
-    
+
     origin_card = card(:origin, origin_column)
     destiny_card = card_product_line(:destiny, destiny_column)
 
@@ -112,7 +96,7 @@ class SolitaireController < ApplicationController
   def card_mover_from_product
     origin_column = column_product_line(:origin)
     destiny_column = column(:destiny)
-    
+
     origin_card = card_product_line(:origin, origin_column)
     destiny_card = card(:destiny, destiny_column)
 

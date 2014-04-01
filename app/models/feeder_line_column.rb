@@ -3,6 +3,8 @@ class FeederLineColumn < ActiveRecord::Base
   has_many :cards, through: :cards_feeder_line_columns
   belongs_to :feeder_line
 
+  default_scope -> { order(:number) }
+
   def add_first_cards(cards)
     1.upto(number) do |position|
       cards_feeder_line_columns << CardsFeederLineColumn.new(card: cards[position-1], position: position)
@@ -25,7 +27,7 @@ class FeederLineColumn < ActiveRecord::Base
   end
 
   def last_position
-    cards_feeder_line_columns.maximum(:position)
+    cards_feeder_line_columns.maximum(:position) || 0
   end
 
   def cards_from(card)
