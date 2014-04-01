@@ -38,6 +38,40 @@ describe Solitaire::Game::MoveParser, "#origin" do
     end
   end
 
+  context "when origin is from productline" do
+    let(:columns) { double(:columns_collection_proxy, find_by: column) }
+    let(:column) { double(:column) }
+
+    let(:params){{
+      origin: { column_id: "product_line_column_14", card_id: "card_12" }
+    }}
+
+    before do
+      game.stub_chain(:product_line, :columns) { columns }
+
+      allow(columns).to receive(:find_by) { column }
+      allow(column).to receive(:cards) { cards }
+    end
+
+    it "gets the column from game's product line columns" do
+      expect(columns).to receive(:find_by).with(id: '14')
+      described_class.new(game, params).origin
+    end
+
+    it "gets the card from column" do
+      expect(cards).to receive(:find_by).with(id: '12')
+      described_class.new(game, params).origin
+    end
+
+    it "returns the origin hash" do
+      origin = described_class.new(game, params).origin
+      expect(origin).to eq({
+        column: column,
+        card: card
+      })
+    end
+  end
+
   context "when origin is from train" do
     let(:params){{
       origin: { column_id: "train", card_id: "card_14" }
@@ -86,6 +120,40 @@ describe Solitaire::Game::MoveParser, "#destiny" do
     end
 
     it "gets the column from game's feeder line columns" do
+      expect(columns).to receive(:find_by).with(id: '14')
+      described_class.new(game, params).destiny
+    end
+
+    it "gets the card from column" do
+      expect(cards).to receive(:find_by).with(id: '12')
+      described_class.new(game, params).destiny
+    end
+
+    it "returns the origin hash" do
+      destiny = described_class.new(game, params).destiny
+      expect(destiny).to eq({
+        column: column,
+        card: card
+      })
+    end
+  end
+
+  context "when destiny is productline" do
+    let(:columns) { double(:columns_collection_proxy, find_by: column) }
+    let(:column) { double(:column) }
+
+    let(:params){{
+      destiny: { column_id: "product_line_column_14", card_id: "card_12" }
+    }}
+
+    before do
+      game.stub_chain(:product_line, :columns) { columns }
+
+      allow(columns).to receive(:find_by) { column }
+      allow(column).to receive(:cards) { cards }
+    end
+
+    it "gets the column from game's product line columns" do
       expect(columns).to receive(:find_by).with(id: '14')
       described_class.new(game, params).destiny
     end
