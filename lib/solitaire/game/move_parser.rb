@@ -18,13 +18,9 @@ module Solitaire
       private
       def params(source)
         column = column(source)
-        if column.cards.count > 0
-          card_id = @opts[source][:card_id].match(/card_(\d+)/) ? $1 : nil
-          card = column.cards.find_by(id: card_id)
-          { column: column, card: card }
-        else
-          { column: column, card: nil }
-        end
+        card_id = @opts[source][:card_id].match(/card_(\d+)/) ? $1 : nil
+        card = column.cards.find_by(id: card_id) rescue nil
+        { column: column, card: card }
       end
 
       def column(source)

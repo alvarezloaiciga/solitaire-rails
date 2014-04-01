@@ -3,7 +3,7 @@ class ProductLineColumn < ActiveRecord::Base
   has_many :cards, through: :cards_product_line_columns
   belongs_to :product_line
 
-  def add_cards_to_product_line(cards)
+  def add_cards(cards)
     card_position = last_position + 1
     cards.count.times do |card_index|
       cards_product_line_columns << CardsProductLineColumn.new(card: cards[card_index], position: last_position+card_position)
@@ -17,7 +17,7 @@ class ProductLineColumn < ActiveRecord::Base
     return cards_product_line_columns.maximum(:position)
   end
 
-  def remove_cards_from_product_line(cards)
+  def remove_cards(cards)
     self.cards.delete(cards)
     if last_position < first_active_card_position
       update(first_active_card_position: last_position)
@@ -25,8 +25,16 @@ class ProductLineColumn < ActiveRecord::Base
   end
 
   def cards_from(card)
-    card_product_column = cards_product_line_columns.find_by(card_id: card.id)
-    card_position = card_product_column.position
-    cards_product_line_columns.where('position >= ?', card_position).map(&:card)
+    [card]
+  end
+
+  def accept_move?(origin_card, destiny_card)
+    if destiny_card.nil? && !origin_card.nil?
+      origin_card.value == 1
+    elsif origin_card.nil?
+      false
+    else
+      destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit
+    end
   end
 end

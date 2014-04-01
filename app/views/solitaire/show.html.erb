@@ -3,6 +3,7 @@
 <% end -%>
 
 <%= render partial: 'train' %>
+<%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 
 <%= form_for @game, url: move_card_path, method: :post do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
@@ -10,12 +11,9 @@
   <%= hidden_field_tag "destiny[card_id]" %>
   <%= hidden_field_tag "destiny[column_id]" %>
   <%= f.submit "Move Card(s)" %>
-  <%= f.submit "Move Card(s) to Product Line" %>
-  <%= f.submit "Move Card(s) to Feeder Line" %>
 <% end %>
 
 <%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
-<%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 
 <div id="movement">
   <span id="origin"></span> <span id="destiny"></span>

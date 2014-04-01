@@ -19,18 +19,7 @@ class SolitaireController < ApplicationController
 
   def move_card
     @game = SolitaireGame.find(params[:id])
-    case params[:commit]
-    when "Move Card(s)"
-      action_card_mover(card_mover.move_between_columns)
-    when "Move Card(s) to Product Line"
-      action_card_mover(card_mover.move_to_product_line)
-    when "Move Card(s) to Feeder Line"
-      action_card_mover(card_mover.move_from_product_line)
-    end
-  end
-
-  def action_card_mover(action)
-    if action
+    if card_mover.move_cards
       redirect_to game_show_path(@game)
     else
       redirect_to game_show_path(@game), alert: "You're stuck here!"

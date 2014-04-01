@@ -1,4 +1,7 @@
 class FeederLineColumn < ActiveRecord::Base
+  BLACK_SUITS = %w( clubs spades )
+  RED_SUITS = %w( diamonds hearts )
+
   has_many :cards_feeder_line_columns
   has_many :cards, through: :cards_feeder_line_columns
   belongs_to :feeder_line
@@ -16,6 +19,19 @@ class FeederLineColumn < ActiveRecord::Base
     cards.count.times do |card_index|
       cards_feeder_line_columns << CardsFeederLineColumn.new(card: cards[card_index], position: last_position+card_position)
       card_position += 1
+    end
+  end
+
+  def accept_move?(origin_card, destiny_card)
+    if destiny_card.nil? && !origin_card.nil?
+      origin_card.value == 13
+    elsif origin_card.nil?
+      false
+    else
+      destiny_red = RED_SUITS.include?(destiny_card.suit)
+      origin_red = RED_SUITS.include?(origin_card.suit)
+
+      destiny_card.value == origin_card.value + 1 && destiny_red != origin_red
     end
   end
 
