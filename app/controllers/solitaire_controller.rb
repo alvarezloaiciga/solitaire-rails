@@ -22,6 +22,8 @@ class SolitaireController < ApplicationController
       move_to_feeder_line
     elsif params[:commit] == "Move Card(s) to Product Line" && !params[:origin][:column_id].match(/feeder_line_column_(\d+)/).nil? 
       move_to_product_line
+    elsif params[:commit] == "Move Card(s) to Feeder Line" && !params[:destiny][:column_id].match(/feeder_line_column_(\d+)/).nil? 
+      move_from_product_line
     else
       redirect_to game_show_path(@game), alert: "You're stuck here!"
     end
@@ -37,6 +39,14 @@ class SolitaireController < ApplicationController
 
   def move_to_product_line
     if card_mover_to_product.move_to_product_line
+        redirect_to game_show_path(@game)
+      else
+        redirect_to game_show_path(@game), alert: "You're stuck here!"
+    end
+  end
+
+  def move_from_product_line
+    if card_mover_from_product.move_to_product_line
         redirect_to game_show_path(@game)
       else
         redirect_to game_show_path(@game), alert: "You're stuck here!"
@@ -97,5 +107,18 @@ class SolitaireController < ApplicationController
     else
       nil
     end
+  end
+
+  def card_mover_from_product
+    origin_column = column_product_line(:origin)
+    destiny_column = column(:destiny)
+    
+    origin_card = card_product_line(:origin, origin_column)
+    destiny_card = card(:destiny, destiny_column)
+
+    Solitaire::Game::CardMover.new(
+      origin:  { card: origin_card,  column: origin_column  },
+      destiny: { card: destiny_card, column: destiny_column }
+    )
   end
 end

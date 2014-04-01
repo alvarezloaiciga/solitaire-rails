@@ -12,8 +12,15 @@ class ProductLineColumn < ActiveRecord::Base
     update(first_active_card_position: card_position - 1)
   end
 
-   def last_position
+  def last_position
    	return 0 if cards_product_line_columns.empty?
     return cards_product_line_columns.maximum(:position)
+  end
+
+  def remove_cards_from_product_line(cards)
+    self.cards.delete(cards)
+    if last_position < first_active_card_position
+      update(first_active_card_position: last_position)
+    end
   end
 end
