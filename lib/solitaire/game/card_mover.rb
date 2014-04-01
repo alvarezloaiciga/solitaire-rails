@@ -24,7 +24,9 @@ module Solitaire
       end
 
       def able_to_move?
-        if origin_card.nil?
+        if destiny_card.nil? && !origin_card.nil?
+          origin_card.value == 13
+        elsif origin_card.nil?
           false
         else
           destiny_red = RED_SUITS.include?(destiny_card.suit)
@@ -54,12 +56,10 @@ module Solitaire
       end
 
       def able_to_move_to_product_line?
-        if destiny_card.nil?
-          if origin_card.value == 1
-            true
-          else
-            false
-          end
+        if destiny_card.nil? && !origin_card.nil?
+          origin_card.value == 1
+        elsif origin_card.nil?
+          false
         else
           destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit
         end
