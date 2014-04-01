@@ -17,10 +17,14 @@ module Solitaire
 
       private
       def params(source)
-        card_id = @opts[source][:card_id].match(/card_(\d+)/) ? $1 : nil
         column = column(source)
-        card = column.cards.find_by(id: card_id)
-        { column: column, card: card }
+        if column.cards.count > 0
+          card_id = @opts[source][:card_id].match(/card_(\d+)/) ? $1 : nil
+          card = column.cards.find_by(id: card_id)
+          { column: column, card: card }
+        else
+          { column: column, card: nil }
+        end
       end
 
       def column(source)
@@ -28,6 +32,9 @@ module Solitaire
 
         when /feeder_line_column_(\d+)/
           @game.feeder_line.columns.find_by(id: $1)
+
+        when /product_line_column_(\d+)/
+          @game.product_line.columns.find_by(id: $1)
 
         when /^train$/
           if source == :origin

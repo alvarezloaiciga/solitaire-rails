@@ -23,4 +23,10 @@ class ProductLineColumn < ActiveRecord::Base
       update(first_active_card_position: last_position)
     end
   end
+
+  def cards_from(card)
+    card_product_column = cards_product_line_columns.find_by(card_id: card.id)
+    card_position = card_product_column.position
+    cards_product_line_columns.where('position >= ?', card_position).map(&:card)
+  end
 end

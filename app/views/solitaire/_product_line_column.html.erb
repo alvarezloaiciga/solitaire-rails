@@ -3,12 +3,8 @@
   <% if !column.cards_product_line_columns.empty? %>
     <% column.cards_product_line_columns.order("product_line_column_id ASC").each do |card_product| %>
       <%= div_for card_product.card, class: "card" do |card| %>
-        <% if card_product.position >= column.first_active_card_position %>
-          <%= card.name %>
-          <%= card.suit %>
-        <% else %>
-           --
-        <% end %>
+        <%= card.name %>
+        <%= card.suit %>
       <% end %>
     <% end %>
   <% else %>
