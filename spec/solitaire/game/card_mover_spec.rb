@@ -20,6 +20,8 @@ describe Solitaire::Game::CardMover, "#destiny column" do
 
   context "when destiny column accepts the move" do
     let(:cards_to_move) { [double(:card)].as_null_object }
+    let(:card) { double(:card) }
+
     before do
       allow(destiny_column).to receive(:accept_move?) { true }
     end
@@ -30,9 +32,15 @@ describe Solitaire::Game::CardMover, "#destiny column" do
     end
 
     it "removes the cards from the origin column" do
+      expect(origin_column).to receive(:remove_cards).with(origin_column) { card }
+      subject.move_cards
     end
+
     it "adds cards to destiny column" do
+      expect(destiny_column).to receive(:add_cards).with(origin_column) { card }
+      subject.move_cards
     end
+    
     it "returns true" do
       expect(destiny_column).to receive(:accept_move?).with(origin_card, destiny_card)
       subject.move_cards
