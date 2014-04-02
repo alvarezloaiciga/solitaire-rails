@@ -4,6 +4,7 @@ module Solitaire
       attr_reader :origin_card, :origin_column, :destiny_card, :destiny_column
 
       def initialize(opts={})
+        puts opts.inspect
         @origin_column = opts[:origin][:column]
         @origin_card = opts[:origin][:card]
         @destiny_column = opts[:destiny][:column]
