@@ -1,5 +1,4 @@
 <div id="product-line-container">
-  <h1> PRODUCT LINE </h1>
   <% product_line.columns.each do |column| %>
     <%= render partial: 'product_line_column', locals: { column: column } %>
   <% end %>

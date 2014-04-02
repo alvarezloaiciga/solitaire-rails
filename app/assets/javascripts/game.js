@@ -39,7 +39,7 @@ function createDestinyCardID(cardDiv) {
   destinyCardID.val(cardDiv.attr('id'));
   destinyColumnID.val(cardDiv.parent().attr('id'));
 
-  $("#destiny").text(number);
+  $("#destiny").text(destinyCardID.val());
 };
 
 function createOriginCardID(cardDiv) {
@@ -49,7 +49,7 @@ function createOriginCardID(cardDiv) {
   originCardID.val(cardDiv.attr('id'));
   originColumnID.val(cardDiv.parent().attr('id'));
 
-  $("#origin").text(number + " -> ");
+  $("#origin").text(originCardID.val() + " -> ");
 };
 
 function moveOriginToDestiny(destinyCard) {

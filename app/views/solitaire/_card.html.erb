@@ -1,0 +1,7 @@
+<% if card == :hidden %>
+  <div class="card card-hidden"></div>
+<% else %>
+  <%= div_for card, class: "card" do %>
+      <%= image_tag("deck/#{card.suit}/#{card.name}.png") %>
+  <% end %>
+<% end %>

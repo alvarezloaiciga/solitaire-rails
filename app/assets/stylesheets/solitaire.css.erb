@@ -1,0 +1,83 @@
+/* Header */
+#header {
+  overflow: hidden;
+}
+
+/* Train */
+
+#train-container {
+  height: 220px;
+  margin: 0 30px;
+  float: left;
+}
+
+#train-deck {
+  width: 156px;
+  height: 220px;
+  overflow: hidden;
+  float: left;
+}
+
+#train {
+  margin-left: 20px !important;
+  width: 120px !important;
+  float: left !important;
+}
+
+#train-deck form{
+  height: 100%;
+}
+
+#next-card-form-button {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background-color: white;
+  background-image: url(<%= asset_path 'deck/back.png' %>);
+}
+
+/* Feeder Line */
+.feed-line-column {
+  height: 800px;
+  width: 10%;
+  float: left;
+  margin: 0 2%;
+  text-align: center;
+}
+
+#feed-line-container {
+  margin: 0 30px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.card {
+  margin: 0 auto;
+  width: 156px;
+  height: 219px;
+  margin-bottom: -160px;
+}
+
+.card-hidden {
+  background-image: url(<%= asset_path 'deck/back.png' %>);
+}
+
+/* Product Line */
+.product-line-column {
+  width: 160px;
+  height: 100%;
+  float: left;
+  text-align: center;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  background-color: green;
+}
+
+#product-line-container {
+  height: 220px;
+  width: 700px;
+  margin: 0 30px;
+  float: right;
+  overflow: hidden;
+  text-align: center;
+}

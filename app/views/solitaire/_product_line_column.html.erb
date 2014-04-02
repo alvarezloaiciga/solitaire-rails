@@ -1,13 +1,9 @@
 <%= div_for column, class: "product-line-column" do %>
-  <%= column.number %>
   <% if !column.cards_product_line_columns.empty? %>
     <% card_to_show = column.cards_product_line_columns.order("card_id ASC").last.card%>
     <% column.cards_product_line_columns.order("product_line_column_id ASC").each do |card_product| %>
       <% if card_to_show.name == card_product.card.name and card_to_show.suit == card_product.card.suit  %>
-        <%= div_for card_product.card, class: "card" do |card| %>
-          <%= card.name %>
-          <%= card.suit %>
-        <% end %>
+        <%= render partial: 'card', locals: { card: card_product.card } %>
       <% end %>
     <% end %>
   <% else %>
