@@ -1,5 +1,6 @@
 /* Header */
 #header {
+  height: 222px;
   overflow: hidden;
 }
 
@@ -7,39 +8,44 @@
   visibility: hidden;
 }
 
+#next-card-button{
+  visibility: hidden;
+}
+
 /* Train */
 
 #train-container {
-  height: 220px;
-  margin: 0 30px;
+  width: 29%;
+  height: 100%;
+  margin-left: 1%;
   float: left;
 }
 
 #train-deck {
-  width: 156px;
-  height: 220px;
+  width: 40%;
+  max-width: 156px;
+  height: 100%;
   overflow: hidden;
   float: left;
 }
 
+#next-card-trigger {
+  width: 99%;
+  border: 1px solid black;
+  border-radius: 9px;
+}
+
+
 #train {
+  height: 100%;
+  width: 40%;
+  max-width: 156px;
   margin-left: 20px !important;
-  width: 120px !important;
   float: left !important;
 }
 
 #train-deck form{
   height: 100%;
-}
-
-#next-card-form-button {
-  height: 100%;
-  width: 100%;
-  border: none;
-  background-color: white;
-  background-image: url(<%= asset_path 'deck/back.png' %>);
-  border: 1px solid black;
-  border-radius: 9px;
 }
 
 /* Feeder Line */
@@ -63,9 +69,10 @@
 
 .card {
   margin: 0 auto;
-  width: 153px;
+  width: 99%;
   height: 219px;
   margin-bottom: -170px;
+  max-width: 156px;
 }
 
 .card img {
@@ -75,27 +82,25 @@
   background-color: white;
 }
 
-.card-hidden {
-}
-
 /* Product Line */
 .product-line-column {
-  width: 160px;
+  width: 21%;
   height: 100%;
+  padding: 0 3px;
+  overflow:hidden;
   float: left;
   text-align: center;
 }
 
 #product-line-container {
-  height: 221px;
-  width: 700px;
-  margin: 0 30px;
+  height: 100%;
+  width: 56%;
   float: right;
   overflow: hidden;
   text-align: center;
 }
 
-.empty-column {
-  height: 219px;
-  border: 1px dashed gray;
+.empty-column img{
+  width: 103%;
+  max-width: 156px;
 }

@@ -1,12 +1,28 @@
+window.onresize = function(event) {
+  var bodyWidth = $(document).width();
+  if(bodyWidth < 1370){
+    console.log(bodyWidth);
+    $("#header").height(bodyWidth*0.167);
+  }
+  else{
+      $("#header").height(222);
+  }
+};
+
+$("#next-card-trigger").click(function(){
+    $(this).parent().submit();
+});
+
 $(".empty-column").click(function(){
   if($("#origin_card_id").val()) {
     originCard = $(".card-selected");
     originCard.removeClass();
     columnID = $("#destiny_column_id").val();
-    originCard.addClass("card card-selected");
+    originCard.addClass("card card-selected product-line-card");
 
     destinyColumnID = $("#destiny_column_id");
     destinyColumnID.val($(this).attr('id'));
+    $(this).empty();
     $(this).append(originCard);
 
     $("#destiny").text(destinyColumnID.val());
