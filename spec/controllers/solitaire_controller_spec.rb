@@ -50,9 +50,9 @@ describe SolitaireController, "GET show" do
 end
 
 describe SolitaireController, "POST move_card" do
-  let(:game) { double(:game).as_null_object }
+  let(:game) { double(:game, id: "1").as_null_object }
   let(:move_parser) { double(:move_parser, origin: {}, destiny: {}) }
-  let(:card_mover) { double(:card_mover) }
+  let(:card_mover) { double(:card_mover, move_cards: true) }
 
   before do
     allow(SolitaireGame).to receive(:find) { game }
@@ -60,9 +60,19 @@ describe SolitaireController, "POST move_card" do
     allow(Solitaire::Game::CardMover).to receive(:new) { card_mover }
   end
 
+  it "parses the move with the correct params" do
+    expect(Solitaire::Game::MoveParser).to receive(:new).with(game, { 'id' => game.id, 'action' => 'move_card', 'controller' => 'solitaire' }) { move_parser }
+    post :move_card, id: game.id
+  end
+
+  it "creates the card mover" do
+    expect(Solitaire::Game::CardMover).to receive(:new).with(origin: move_parser.origin, destiny: move_parser.destiny) { card_mover }
+    post :move_card, id: game.id
+  end
+
   it "finds the current game" do
     expect(SolitaireGame).to receive(:find).with(game.id.to_s)
-    get :show, id: game.id
+    post :move_card, id: game.id
   end
 
   context "when moves cards" do
@@ -93,7 +103,7 @@ describe SolitaireController, "POST next_card" do
 
   it "finds the current game" do
     expect(SolitaireGame).to receive(:find).with(game.id.to_s)
-    get :show, id: game.id
+    post :next_card, id: game.id
   end
 
   it "changes the card" do
