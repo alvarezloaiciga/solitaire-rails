@@ -1,5 +1,4 @@
 <div id="feed-line-container">
-  <h1> FEEDER LINE </h1>
   <% feeder_line.columns.each do |column| %>
     <%= render partial: 'feeder_line_column', locals: { column: column } %>
   <% end %>

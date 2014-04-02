@@ -25,7 +25,11 @@ class CardsTrain < ActiveRecord::Base
   end
 
   def next_card!
-    update(active_card_position: next_active_card_position)
+    if cards.present?
+      update(active_card_position: next_active_card_position)
+    else
+      update(active_card_position: nil)
+    end
   end
 
   def cards_from(card)

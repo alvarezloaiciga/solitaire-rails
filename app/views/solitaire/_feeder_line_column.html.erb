@@ -1,19 +1,14 @@
-<%= div_for column, class: "feed-line-column" do %>
-  <%= column.number %>
-  <% if !column.cards_feeder_line_columns.empty? %>
+<% if column.cards_feeder_line_columns.present? %>
+  <%= div_for column, class: "feed-line-column" do %>
     <% column.cards_feeder_line_columns.order("feeder_line_column_id ASC").each do |card_feed| %>
-      <%= div_for card_feed.card, class: "card" do |card| %>
-        <% if card_feed.position >= column.first_active_card_position %>
-          <%= card.name %>
-          <%= card.suit %>
-        <% else %>
-            --
-        <% end %>
+      <% if card_feed.position >= column.first_active_card_position %>
+        <%= render partial: 'card', locals: { card: card_feed.card } %>
+      <% else %>
+        <%= render partial: 'card', locals: { card: :hidden } %>
       <% end %>
     <% end %>
-  <% else %>
-    <%= div_for column, class: "card" do |card| %>
-          Empty
-    <% end %>
+  <% end %>
+<% else %>
+  <%= div_for column, class: "feed-line-column empty-column" do %>
   <% end %>
 <% end %>

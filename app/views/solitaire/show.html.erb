@@ -2,8 +2,11 @@
   <%= content_tag :div, msg, class: name %>
 <% end -%>
 
-<%= render partial: 'train' %>
-<%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
+<div id="header">
+  <%= render partial: 'train' %>
+  <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
+</div>
+
 
 <%= form_for @game, url: move_card_path, method: :post do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
