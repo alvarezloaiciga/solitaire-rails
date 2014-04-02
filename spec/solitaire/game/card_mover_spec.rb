@@ -40,7 +40,6 @@ describe Solitaire::Game::CardMover, "#destiny column" do
       expect(destiny_column).to receive(:add_cards).with(origin_column) { card }
       subject.move_cards
     end
-    
     it "returns true" do
       expect(destiny_column).to receive(:accept_move?).with(origin_card, destiny_card)
       subject.move_cards
