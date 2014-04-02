@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe SolitaireController, "GET new" do
-  it "renders the new template" do
-    get :new
-    expect(response).to render_template("new")
-  end
-
   it "creates a New Game" do
     expect(SolitaireGame).to receive(:new)
     get :new
+  end
+
+  it "renders the new template" do
+    get :new
+    expect(response).to render_template("new")
   end
 end
 
@@ -16,11 +16,6 @@ describe SolitaireController, "POST create" do
   let(:game) { double(:game).as_null_object }
 
   before { allow(SolitaireGame).to receive(:new) { game } }
-
-  it "redirects to Show page" do
-    post :create
-    expect(response).to redirect_to game_show_path(game)
-  end
 
   it "initializes the game" do
     expect(game).to receive(:init_everything)
@@ -31,21 +26,26 @@ describe SolitaireController, "POST create" do
     expect(game).to receive(:save)
     post :create
   end
+
+  it "redirects to Show page" do
+    post :create
+    expect(response).to redirect_to game_show_path(game)
+  end
 end
 
 describe SolitaireController, "GET show" do
   let(:game) { double(:game).as_null_object }
 
-  before { allow(SolitaireGame).to receive(:find).with("#{game.id}") { game } }
+  before { allow(SolitaireGame).to receive(:find) { game } }
+
+  it "finds the current game" do
+    expect(SolitaireGame).to receive(:find).with(game.id.to_s)
+    get :show, id: game.id
+  end
 
   it "renders the show template" do
     get :show, id: game.id
     expect(response).to render_template("show")
-  end
-
-  it "finds the actual game" do
-    expect(SolitaireGame).to receive(:find).with("#{game.id}")
-    get :show, id: game.id
   end
 end
 
@@ -55,9 +55,14 @@ describe SolitaireController, "POST move_card" do
   let(:card_mover) { double(:card_mover) }
 
   before do
-    allow(SolitaireGame).to receive(:find).with("#{game.id}") { game }
+    allow(SolitaireGame).to receive(:find) { game }
     allow(Solitaire::Game::MoveParser).to receive(:new) { move_parser }
-    allow(Solitaire::Game::CardMover).to receive(:new).with({ origin: move_parser.origin, destiny: move_parser.destiny }) { card_mover }
+    allow(Solitaire::Game::CardMover).to receive(:new) { card_mover }
+  end
+
+  it "finds the current game" do
+    expect(SolitaireGame).to receive(:find).with(game.id.to_s)
+    get :show, id: game.id
   end
 
   context "when moves cards" do
@@ -84,11 +89,11 @@ describe SolitaireController, "POST next_card" do
   let(:cards_train) { double(:cards_train).as_null_object }
   let(:game) { double(:game, cards_train: cards_train).as_null_object }
 
-  before { allow(SolitaireGame).to receive(:find).with("#{game.id}") { game } }
+  before { allow(SolitaireGame).to receive(:find) { game } }
 
-  it "redirects to Show page" do
-    post :next_card, id: game.id
-    expect(response).to redirect_to game_show_path(game)
+  it "finds the current game" do
+    expect(SolitaireGame).to receive(:find).with(game.id.to_s)
+    get :show, id: game.id
   end
 
   it "changes the card" do
@@ -96,9 +101,8 @@ describe SolitaireController, "POST next_card" do
     post :next_card, id: game.id
   end
 
-  it "finds the actual game" do
-    expect(SolitaireGame).to receive(:find).with("#{game.id}")
-    get :show, id: game.id
+  it "redirects to Show page" do
+    post :next_card, id: game.id
+    expect(response).to redirect_to game_show_path(game)
   end
-
 end
