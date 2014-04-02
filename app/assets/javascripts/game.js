@@ -1,6 +1,20 @@
+$(".empty-column").click(function(){
+  if($("#origin_card_id").val()) {
+    originCard = $(".card-selected");
+    originCard.removeClass();
+    columnID = $("#destiny_column_id").val();
+    originCard.addClass("card card-selected");
+
+    destinyColumnID = $("#destiny_column_id");
+    destinyColumnID.val($(this).attr('id'));
+    $(this).append(originCard);
+
+    $("#destiny").text(destinyColumnID.val());
+  }
+});
+
 $(".card").click(function(){
-  number = $(this).text().trim();
-  if( number === "--"){
+  if( $(this).hasClass("card-hidden")){
     alert("Sorry it's hidden");
   } else {
     selectRelevantCards($(this));
@@ -55,14 +69,22 @@ function createOriginCardID(cardDiv) {
 function moveOriginToDestiny(destinyCard) {
   originCard = $(".card-selected");
   originCard.removeClass();
+  columnID = $("#destiny_column_id").val();
   originCard.addClass("card card-selected");
+
+  if(columnID.match(/product_line_column/)){
+    originCard.addClass("card card-selected product-line-card");
+  }
+
   destinyCard.after(originCard);
 };
 
 function style_children(parent, select) {
   parent.toggleClass("card-selected");
   parent.children().each(function() {
-    style_children($(this));
+    if($(this).hasClass("card")){
+      style_children($(this));
+    }
   });
 };
 

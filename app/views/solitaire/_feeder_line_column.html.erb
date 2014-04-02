@@ -1,5 +1,5 @@
-<%= div_for column, class: "feed-line-column" do %>
-  <% if !column.cards_feeder_line_columns.empty? %>
+<% if column.cards_feeder_line_columns.present? %>
+  <%= div_for column, class: "feed-line-column" do %>
     <% column.cards_feeder_line_columns.order("feeder_line_column_id ASC").each do |card_feed| %>
       <% if card_feed.position >= column.first_active_card_position %>
         <%= render partial: 'card', locals: { card: card_feed.card } %>
@@ -7,9 +7,8 @@
         <%= render partial: 'card', locals: { card: :hidden } %>
       <% end %>
     <% end %>
-  <% else %>
-    <%= div_for column, class: "card" do |card| %>
-          Empty
-    <% end %>
+  <% end %>
+<% else %>
+  <%= div_for column, class: "feed-line-column empty-column" do %>
   <% end %>
 <% end %>

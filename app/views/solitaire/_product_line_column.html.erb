@@ -1,14 +1,13 @@
-<%= div_for column, class: "product-line-column" do %>
-  <% if !column.cards_product_line_columns.empty? %>
+<% if !column.cards_product_line_columns.empty? %>
+  <%= div_for column, class: "product-line-column" do %>
     <% card_to_show = column.cards_product_line_columns.order("card_id ASC").last.card%>
     <% column.cards_product_line_columns.order("product_line_column_id ASC").each do |card_product| %>
       <% if card_to_show.name == card_product.card.name and card_to_show.suit == card_product.card.suit  %>
         <%= render partial: 'card', locals: { card: card_product.card } %>
       <% end %>
     <% end %>
-  <% else %>
-    <%= div_for column, class: "card" do |card| %>
-          Empty
-    <% end %>
+  <% end %>
+<% else %>
+  <%= div_for column, class: "product-line-column empty-column" do %>
   <% end %>
 <% end %>
