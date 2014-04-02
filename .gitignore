@@ -16,3 +16,6 @@
 /tmp
 .keep
 database.yml
+
+#OS X files
+.DS_Store
