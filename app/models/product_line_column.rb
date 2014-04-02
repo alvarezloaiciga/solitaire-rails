@@ -3,6 +3,8 @@ class ProductLineColumn < ActiveRecord::Base
   has_many :cards, through: :cards_product_line_columns
   belongs_to :product_line
 
+  default_scope -> { order(:number) }
+
   def add_cards(cards)
     card_position = last_position + 1
     cards.count.times do |card_index|

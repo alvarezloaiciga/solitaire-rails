@@ -7,13 +7,12 @@
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
 
-
 <%= form_for @game, url: move_card_path, method: :post do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
   <%= hidden_field_tag "origin[column_id]" %>
   <%= hidden_field_tag "destiny[card_id]" %>
   <%= hidden_field_tag "destiny[column_id]" %>
-  <%= f.submit "Move Card(s)" %>
+  <%= f.submit "Move Card(s)", id: "move-card-button" %>
 <% end %>
 
 <%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>

@@ -10,6 +10,7 @@ $(".empty-column").click(function(){
     $(this).append(originCard);
 
     $("#destiny").text(destinyColumnID.val());
+    $(".edit_solitaire_game").submit();
   }
 });
 
@@ -77,6 +78,7 @@ function moveOriginToDestiny(destinyCard) {
   }
 
   destinyCard.after(originCard);
+  $(".edit_solitaire_game").submit();
 };
 
 function style_children(parent, select) {
