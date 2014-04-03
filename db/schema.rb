@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140331165730) do
+ActiveRecord::Schema.define(version: 20140403160404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140331165730) do
   create_table "product_line_columns", force: true do |t|
     t.integer "product_line_id"
     t.integer "number"
-    t.integer "first_active_card_position"
+    t.integer "active_card_position"
   end
 
   add_index "product_line_columns", ["product_line_id"], name: "index_product_line_columns_on_product_line_id", using: :btree

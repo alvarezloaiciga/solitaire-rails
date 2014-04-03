@@ -3,7 +3,8 @@
     <%= image_tag("deck/back.png") %>
   </div>
 <% else %>
-  <%= div_for card do %>
+  <% klass ||= nil %>
+  <%= div_for card, class: klass do %>
       <%= image_tag("deck/#{card.suit}/#{card.name}.png") %>
   <% end %>
 <% end %>

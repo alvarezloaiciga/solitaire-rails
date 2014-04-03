@@ -6,12 +6,16 @@ class ProductLineColumn < ActiveRecord::Base
   default_scope -> { order(:number) }
 
   def add_cards(cards)
-    card_position = last_position + 1
+    card_position = last_position
     cards.count.times do |card_index|
-      cards_product_line_columns << CardsProductLineColumn.new(card: cards[card_index], position: last_position+card_position)
       card_position += 1
+      cards_product_line_columns << CardsProductLineColumn.new(card: cards[card_index], position: last_position+card_position)
     end
-    update(first_active_card_position: card_position - 1)
+    update(active_card_position: card_position - 1)
+  end
+
+  def ordered_cards
+    @ordered_cards || cards_product_line_columns.order(:id).map(&:card)
   end
 
   def last_position
@@ -21,8 +25,10 @@ class ProductLineColumn < ActiveRecord::Base
 
   def remove_cards(cards)
     self.cards.delete(cards)
-    if last_position < first_active_card_position
-      update(first_active_card_position: last_position)
+    if active_card_position == 0
+      update(active_card_position: nil)
+    else
+      decrement!(:active_card_position)
     end
   end
 
