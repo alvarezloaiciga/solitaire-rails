@@ -19,6 +19,8 @@ module Solitaire
         end
       end
 
+      private
+
       def move
         cards_to_move = moving_cards
         origin_column.remove_cards(cards_to_move)
