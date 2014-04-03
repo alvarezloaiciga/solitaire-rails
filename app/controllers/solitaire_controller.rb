@@ -14,11 +14,15 @@ class SolitaireController < ApplicationController
   end
 
   def show
-    @game = SolitaireGame.includes({cards_train: [:cards], feeder_line: [:columns], product_line: [:columns]}).where(id: params[:id]).first
+    @game = SolitaireGame.includes({
+      cards_train: [:cards, :cards_cards_trains],
+      feeder_line: { columns: [:cards, :cards_feeder_line_columns] },
+      product_line: { columns: [:cards, :cards_product_line_columns] },
+    }).find_by(id: params[:id])
   end
 
   def move_card
-    @game = SolitaireGame.find(params[:id])
+    @game = current_game
     if card_mover.move_cards
       redirect_to game_show_path(@game)
     else
@@ -27,12 +31,16 @@ class SolitaireController < ApplicationController
   end
 
   def next_card
-    @game = SolitaireGame.find(params[:id])
+    @game = current_game
     @game.cards_train.next_card!
     redirect_to game_show_path(@game)
   end
 
   private
+  def current_game
+    @game ||= SolitaireGame.find(params[:id])
+  end
+
   def card_mover
     move = Solitaire::Game::MoveParser.new(@game, params)
     Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)

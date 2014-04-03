@@ -31,6 +31,7 @@ end
 describe CardsTrain, "#next_card" do
   context "when active_card_position is nil" do
     it "changes active_card_position to 0" do
+      subject.cards << Card.create
       expect{
         subject.next_card!
       }.to change { subject.active_card_position }.from(nil).to(0)

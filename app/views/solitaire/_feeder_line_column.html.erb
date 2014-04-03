@@ -1,7 +1,8 @@
 <% if column.cards_feeder_line_columns.present? %>
   <%= div_for column, class: "feed-line-column" do %>
+    <% active_position = column.first_active_card_position %>
     <% column.cards_feeder_line_columns.each do |card_feed| %>
-      <% if card_feed.position >= column.first_active_card_position %>
+      <% if card_feed.position >= active_position %>
         <%= render partial: 'card', locals: { card: card_feed.card } %>
       <% else %>
         <%= render partial: 'card', locals: { card: :hidden } %>

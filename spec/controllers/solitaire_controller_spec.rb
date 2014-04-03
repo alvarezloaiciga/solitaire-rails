@@ -34,12 +34,14 @@ describe SolitaireController, "POST create" do
 end
 
 describe SolitaireController, "GET show" do
-  let(:game) { double(:game).as_null_object }
+  let(:game) { double(:game, id: 1).as_null_object }
 
-  before { allow(SolitaireGame).to receive(:find) { game } }
+  before { SolitaireGame.stub_chain(:includes, :find_by) { game } }
 
   it "finds the current game" do
-    expect(SolitaireGame).to receive(:find).with(game.id.to_s)
+    includes = double(:includes)
+    expect(SolitaireGame).to receive(:includes) { includes }
+    expect(includes).to receive(:find_by).with(id: game.id.to_s)
     get :show, id: game.id
   end
 
