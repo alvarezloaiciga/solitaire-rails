@@ -1,4 +1,5 @@
 require 'solitaire/game/card_mover'
+
 describe Solitaire::Game::CardMover, "#move_cards" do
   let(:destiny_column) { double(:destiny_column).as_null_object }
   let(:origin_column) { double(:origin_column).as_null_object }
@@ -42,18 +43,12 @@ describe Solitaire::Game::CardMover, "#move_cards" do
       subject.move_cards
     end
 
-    it "returns true" do
-      expect(subject.move_cards).to be_true
-    end
+    its(:move_cards) { should be_true }
   end
 
   context "when destiny column does not accept the move" do
-    before do
-      allow(destiny_column).to receive(:accept_move?) { false }
-    end
+    before { allow(destiny_column).to receive(:accept_move?) { false } }
 
-    it "returns false" do
-      expect(subject.move_cards).to be_false
-    end
+    its(:move_cards) { should be_false }
   end
 end
