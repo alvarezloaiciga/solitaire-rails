@@ -20,8 +20,7 @@ describe Solitaire::Game::CardMover, "#move_cards" do
   end
 
   context "when destiny column accepts the move" do
-    let(:cards_to_move) { [double(:card)] }
-    let(:card) { double(:card) }
+    let(:cards_to_move) { [origin_card] }
 
     before do
       allow(destiny_column).to receive(:accept_move?) { true }
