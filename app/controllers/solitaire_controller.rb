@@ -14,7 +14,7 @@ class SolitaireController < ApplicationController
   end
 
   def show
-    @game = SolitaireGame.find(params[:id])
+    @game = SolitaireGame.includes({cards_train: [:cards], feeder_line: [:columns], product_line: [:columns]}).where(id: params[:id]).first
   end
 
   def move_card
