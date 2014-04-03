@@ -33,17 +33,17 @@ describe Solitaire::Game::CardMover, "#move_cards" do
     end
 
     it "removes the cards from the origin column" do
-      expect(origin_column).to receive(:remove_cards).with(cards_to_move) { card }
+      expect(origin_column).to receive(:remove_cards).with(cards_to_move)
       subject.move_cards
     end
 
     it "adds cards to destiny column" do
-      expect(destiny_column).to receive(:add_cards).with(cards_to_move) { card }
+      expect(destiny_column).to receive(:add_cards).with(cards_to_move)
       subject.move_cards
     end
+
     it "returns true" do
-      expect(destiny_column).to receive(:accept_move?).with(origin_card, destiny_card)
-      subject.move_cards
+      expect(subject.move_cards).to be_true
     end
   end
 
@@ -51,9 +51,9 @@ describe Solitaire::Game::CardMover, "#move_cards" do
     before do
       allow(destiny_column).to receive(:accept_move?) { false }
     end
+
     it "returns false" do
-      expect(destiny_column).to receive(:accept_move?).with(origin_card, destiny_card)
-      subject.move_cards
+      expect(subject.move_cards).to be_false
     end
   end
 end
