@@ -14,7 +14,7 @@ describe Solitaire::Game::CardMover, "#move_cards" do
 
   subject { described_class.new(params) }
 
-  it "checks that destiny column accepts the move" do
+  it "checks if destiny column accepts the move" do
     expect(destiny_column).to receive(:accept_move?).with(origin_card, destiny_card) { false }
     subject.move_cards
   end
