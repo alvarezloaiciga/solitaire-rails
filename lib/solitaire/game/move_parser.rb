@@ -32,7 +32,7 @@ module Solitaire
         when /product_line_column_(\d+)/
           @game.product_line.columns.find_by(id: $1)
 
-        when /^train$/
+        when /train_(\d+)/
           if source == :origin
             @game.cards_train
           else

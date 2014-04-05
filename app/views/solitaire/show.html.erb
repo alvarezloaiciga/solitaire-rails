@@ -7,7 +7,7 @@
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
 
-<%= form_for @game, url: move_card_path, method: :post do |f| %>
+<%= form_for @game, url: move_card_path, method: :post, remote: true, :html => {:class => 'move-card-form'} do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
   <%= hidden_field_tag "origin[column_id]" %>
   <%= hidden_field_tag "destiny[card_id]" %>

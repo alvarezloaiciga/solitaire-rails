@@ -15,7 +15,7 @@ class ProductLineColumn < ActiveRecord::Base
   end
 
   def ordered_cards
-    @ordered_cards || cards_product_line_columns.order(:id).map(&:card)
+    @ordered_cards || cards_product_line_columns.map(&:card)
   end
 
   def last_position
@@ -36,7 +36,8 @@ class ProductLineColumn < ActiveRecord::Base
     [card]
   end
 
-  def accept_move?(origin_card, destiny_card)
+  def accept_move?(origin_card)
+    destiny_card = cards_product_line_columns.last.try(:card)
     if destiny_card.nil? && !origin_card.nil?
       origin_card.value == 1
     elsif origin_card.nil?

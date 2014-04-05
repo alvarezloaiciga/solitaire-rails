@@ -10,11 +10,11 @@ window.onresize = function(event) {
 };
 
 $("#next-card-trigger").click(function(){
-    $(this).parent().submit();
+  $(this).parent().submit();
 });
 
 $(".empty-column").click(function(){
-  if($("#origin_card_id").val()) {
+  if($("#origin_card_id").val()  != "") {
     originCard = $(".card-selected");
     originCard.removeClass();
     columnID = $("#destiny_column_id").val();
@@ -26,14 +26,15 @@ $(".empty-column").click(function(){
     $(this).append(originCard);
 
     $("#destiny").text(destinyColumnID.val());
-    $(".edit_solitaire_game").submit();
+    $(".move-card-form").submit();
   }
 });
 
-$(".card").click(function(){
+$("body").delegate('.card', 'click', function(){
   if( $(this).hasClass("card-hidden")){
     alert("Sorry it's hidden");
   } else {
+    console.log($(this));
     selectRelevantCards($(this));
     $(this).hasClass("card-selected") ? processSelectedCard($(this)) : deleteCard($(this));
   }
@@ -77,6 +78,8 @@ function createOriginCardID(cardDiv) {
   originCardID = $("#origin_card_id");
   originColumnID = $("#origin_column_id");
 
+  console.log(cardDiv.attr('id'));
+
   originCardID.val(cardDiv.attr('id'));
   originColumnID.val(cardDiv.parent().attr('id'));
 
@@ -94,7 +97,7 @@ function moveOriginToDestiny(destinyCard) {
   }
 
   destinyCard.after(originCard);
-  $(".edit_solitaire_game").submit();
+  $(".move-card-form").submit();
 };
 
 function style_children(parent, select) {

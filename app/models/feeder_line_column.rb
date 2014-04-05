@@ -22,9 +22,10 @@ class FeederLineColumn < ActiveRecord::Base
     end
   end
 
-  def accept_move?(origin_card, destiny_card)
+  def accept_move?(origin_card)
+    destiny_card = cards_feeder_line_columns.last.try(:card)
     if destiny_card.nil? && !origin_card.nil?
-      origin_card.value == 13
+      origin_card.name == "K"
     elsif origin_card.nil?
       false
     else
@@ -49,6 +50,6 @@ class FeederLineColumn < ActiveRecord::Base
   def cards_from(card)
     card_feeder_column = cards_feeder_line_columns.find_by(card_id: card.id)
     card_position = card_feeder_column.position
-    cards_feeder_line_columns.where('position >= ?', card_position).map(&:card)
+    cards_feeder_line_columns.where('position >= ?', card_position).order(:position).map(&:card)
   end
 end

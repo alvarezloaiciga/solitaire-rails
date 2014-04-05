@@ -1,14 +1,17 @@
 <div id="train-container">
   <div id="train-deck">
-    <%= form_for @game, url: next_card_path, method: :post do |f| %>
+    <%= form_for @game, url: next_card_path, method: :post, remote: true do |f| %>
       <%= image_tag "deck/back.png", id: "next-card-trigger" %>
       <%= f.submit "", id: "next-card-button" %>
     <% end %>
   </div>
 
-  <div id="train">
-    <% if card = @game.cards_train.active_card %>
-      <%= render partial: 'card', locals: { card: card } %>
+  <%= div_for @game.cards_train, class: "train" do %>
+    <% cards = @game.cards_train.used_cards %>
+    <% if cards.present? %>
+      <% cards.each do |card| %>
+        <%= render partial: 'card', locals: { card: card } %>
+      <% end %>
     <% end %>
-  </div>
+  <% end %>
 </div>

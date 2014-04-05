@@ -23,17 +23,22 @@ class SolitaireController < ApplicationController
 
   def move_card
     @game = current_game
-    if card_mover.move_cards
-      redirect_to game_show_path(@game)
-    else
-      redirect_to game_show_path(@game), alert: "You're stuck here!"
+    respond_to do |f|
+      if @card_moved = card_mover.move_cards
+        f.js { render template: 'solitaire/moved_card' }
+      else
+        f.js { render template: 'solitaire/not_moved_card' }
+      end
     end
   end
 
   def next_card
-    @game = current_game
-    @game.cards_train.next_card!
-    redirect_to game_show_path(@game)
+    @train = current_game.cards_train
+    @train.next_card!
+
+    respond_to do |f|
+      f.js {}
+    end
   end
 
   private
@@ -42,7 +47,10 @@ class SolitaireController < ApplicationController
   end
 
   def card_mover
-    move = Solitaire::Game::MoveParser.new(@game, params)
-    Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)
+    @card_mover ||= Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)
+  end
+
+  def move
+    @move ||= Solitaire::Game::MoveParser.new(@game, params)
   end
 end

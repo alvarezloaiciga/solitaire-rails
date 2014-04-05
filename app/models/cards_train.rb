@@ -32,6 +32,13 @@ class CardsTrain < ActiveRecord::Base
     end
   end
 
+  def used_cards
+    if active_card_position
+      ordered_cards_train = cards_cards_trains.order(:id)
+      ordered_cards_train[0..active_card_position].map(&:card)
+    end
+  end
+
   def cards_from(card)
     [card]
   end
