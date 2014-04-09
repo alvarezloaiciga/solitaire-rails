@@ -5,7 +5,7 @@ window.onresize = function(event) {
     $("#header").height(bodyWidth*0.167);
   }
   else{
-      $("#header").height(222);
+    $("#header").height(222);
   }
 };
 
@@ -18,30 +18,30 @@ $(document).ready(function() {
 });
 
 var draggableOptions = {
-    revert: function(isValidMove) {
-      if(!isValidMove) {
-        $('.dragging-card').detach().appendTo($('.original-parent'));
-      }
-      return !isValidMove;
-    },
-    start: function(event, ui) {
-      $('.last-card').droppable({ disabled: true });
-      console.log($(this).attr('id'));
-    },
-    helper: function(event, ui) {
-      $(this).parent().addClass('original-parent');
-      selectDraggingCards($(this));
-      var draggingGroup = $('<div />', { "class": 'dragging-group feeder_line_column'});
-      draggingGroup.appendTo($(this).parent());
-      $('.dragging-card').detach().appendTo(draggingGroup);
-      return draggingGroup;
-    },
-    stop: function(event, ui) {
-      $('div.dragging-card').removeClass('dragging-card')
-      enableDroppableLastCard();
-      $('.last-card').removeClass('last-card');
-      $('.original-parent').removeClass('original-parent');
+  revert: function(isValidMove) {
+    if(!isValidMove) {
+      $('.dragging-card').detach().appendTo($('.original-parent'));
     }
+    return !isValidMove;
+  },
+  start: function(event, ui) {
+    $('.last-card').droppable({ disabled: true });
+    console.log($(this).attr('id'));
+  },
+  helper: function(event, ui) {
+    $(this).parent().addClass('original-parent');
+    selectDraggingCards($(this));
+    var draggingGroup = $('<div />', { "class": 'dragging-group feeder_line_column'});
+    draggingGroup.appendTo($(this).parent());
+    $('.dragging-card').detach().appendTo(draggingGroup);
+    return draggingGroup;
+  },
+  stop: function(event, ui) {
+    $('div.dragging-card').removeClass('dragging-card')
+    enableDroppableLastCard();
+    $('.last-card').removeClass('last-card');
+    $('.original-parent').removeClass('original-parent');
+  }
 };
 
 var emptyColumnDroppableOptions = {
@@ -159,15 +159,15 @@ function moveOriginToDestiny(originCard) {
 
 function topMostCard(card)
 {
-    var elements = document.getElementsByClassName("card");
-    var highest_index = 0;
+  var elements = document.getElementsByClassName("card");
+  var highest_index = 0;
 
-    for (var i = 0; i < elements.length - 1; i++) {
-        if (parseInt(elements[i].style.zIndex) > highest_index) {
-            highest_index = parseInt(elements[i].style.zIndex);
-        }
+  for (var i = 0; i < elements.length - 1; i++) {
+    if (parseInt(elements[i].style.zIndex) > highest_index) {
+      highest_index = parseInt(elements[i].style.zIndex);
     }
-    card.css('zIndex', highest_index + 1);
+  }
+  card.css('zIndex', highest_index + 1);
 }
 
 $("#train-card").click(function(){
