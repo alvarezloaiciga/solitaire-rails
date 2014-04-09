@@ -61,7 +61,7 @@ var emptyColumnDroppableOptions = {
   }
 };
 
-$( ".card" ).droppable({
+var cardDroppableOptions = {
   drop: function(event, ui) {
     createOriginCardID(ui.draggable);
     createDestinyCardID($(this));
@@ -70,19 +70,20 @@ $( ".card" ).droppable({
     removeDroppableDestinyCard($(this));
     moveOriginToDestiny(ui.draggable);
   }
-}
+};
 
 function enableDragAndDrop() {
-  disableNotDroppableCards();
   enableDraggableCards();
   enableDroppableEmptyColumns();
+  disableNotDroppableCards();
 };
 
 function disableNotDroppableCards() {
+  $( ".card" ).droppable(cardDroppableOptions);
   $('.card').droppable({ disabled: true });
   $('.feeder_line_column div.card:last-child').droppable({ disabled: false });
   $('.product_line_column div.card:last-child').droppable({ disabled: false });
-}
+};
 
 function enableDroppableEmptyColumns() {
   $(".empty-column").droppable(emptyColumnDroppableOptions);
@@ -120,11 +121,11 @@ function selectLastDraggingCard(card) {
 function addDroppableInOriginColumn() {
   var last = $('.original-parent div.card:nth-last-child(2)');
   last.droppable({ disabled: false });
-}
+};
 
 function removeDroppableDestinyCard(card) {
   card.droppable({ disabled: true });
-}
+};
 
 function createDestinyCardID(cardDiv) {
   destinyCardID = $("#destiny_card_id");

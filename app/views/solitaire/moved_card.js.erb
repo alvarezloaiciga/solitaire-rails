@@ -1,10 +1,8 @@
-cards_selected = $(".card-selected");
-cards_selected.removeClass("card-selected");
-
 destiny_column = $("#<%= object_id(@card_mover.destiny_column)%>");
 destiny_column.removeClass("empty-column");
 <% cards = @card_mover.destiny_column.cards_from(@card_mover.origin_card) %>
 <% cards.each do |car| %>
+  console.log("<%=car.id%>");
   destiny_column.append($("#<%= object_id(car) %>"));
 <% end %>
 
@@ -22,5 +20,6 @@ destiny_column.removeClass("empty-column");
     column.append("<%= escape_javascript image_tag("deck/empty.png") %>");
   <% end %>
 <% end %>
+enableDragAndDrop();
 
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');
