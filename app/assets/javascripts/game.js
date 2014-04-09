@@ -86,7 +86,11 @@ function disableNotDroppableCards() {
 };
 
 function enableDroppableEmptyColumns() {
-  $(".empty-column").droppable(emptyColumnDroppableOptions);
+  $(".feeder_line_column").droppable(emptyColumnDroppableOptions);
+  $(".product_line_column").droppable(emptyColumnDroppableOptions);
+  $('.feeder_line_column').droppable({ disabled: true });
+  $('.product_line_column').droppable({ disabled: true });
+  $('.empty-column').droppable({ disabled: false});
 };
 
 function enableDraggableCards() {
@@ -95,7 +99,7 @@ function enableDraggableCards() {
 
 function enableDroppableLastCard() {
   var lastCard = $('.last-card')
-  if(lastCard.parent().attr('id') != 'train') {
+  if(!lastCard.parent().attr('id').match(/train/)) {
     lastCard.droppable({ disabled: false });
   }
 };
