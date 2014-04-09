@@ -1,12 +1,10 @@
-cards_selected = $(".card-selected");
-cards_selected.removeClass("card-selected");
-
 train = $("#<%= object_id(@train) %>");
 <% active_card = @train.active_card %>
-if(<%= active_card.present?  %>){
-  $("<%= escape_javascript(render partial: 'card', locals: { card: active_card }) %>").appendTo(train);
-} else {
+<% if active_card.present? %>
+  train.append("<%= escape_javascript(render partial: 'card', locals: { card: active_card } )%>");
+  enableDragAndDrop();
+<% else %>
   train.empty();
-}
+<% end %>
 
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');

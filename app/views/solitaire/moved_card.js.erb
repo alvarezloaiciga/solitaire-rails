@@ -1,19 +1,17 @@
-cards_selected = $(".card-selected");
-cards_selected.removeClass("card-selected");
-
 <% if @card_mover.origin_column.is_a?(FeederLineColumn) %>
     <% if last_card = @card_mover.origin_column.cards.last %>
         card = $("#<%=object_id(last_card)%>");
         column = $("#<%= object_id(@card_mover.origin_column)%>");
         if(!card.length){
           $("#<%= object_id(@card_mover.origin_column)%> .card").last().remove();
-          $("<%= escape_javascript(render partial: 'card', locals: { card: last_card }) %>").appendTo(column);
+          column.append("<%= escape_javascript(render partial: 'card', locals: { card: last_card }) %>");
         }
     <% else %>
       column = $("#<%= object_id(@card_mover.origin_column)%>");
       column.addClass("empty-column");
       column.append("<%= escape_javascript image_tag("deck/empty.png") %>");
     <% end %>
+    enableDragAndDrop();
 <% end %>
 
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');

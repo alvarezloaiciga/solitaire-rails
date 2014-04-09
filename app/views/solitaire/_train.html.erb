@@ -1,6 +1,6 @@
 <div id="train-container">
   <div id="train-deck">
-    <%= form_for @game, url: next_card_path, method: :post, remote: true do |f| %>
+    <%= form_for(@game, url: next_card_path, method: :post, remote: true, authenticity_token: true) do |f| %>
       <%= image_tag "deck/back.png", id: "next-card-trigger" %>
       <%= f.submit "", id: "next-card-button" %>
     <% end %>
