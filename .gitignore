@@ -19,3 +19,6 @@ database.yml
 
 #OS X files
 .DS_Store
+
+#POW files
+.powrc

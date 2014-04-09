@@ -13,10 +13,14 @@ $("#next-card-trigger").click(function(){
     $(this).parent().submit();
 });
 
+$(document).ready(function() {
+  disableNotDroppableCards();
+});
+
 var draggableOptions = {
     revert: function(isValidMove) {
       if(!isValidMove) {
-        $('.dragging-card').detach().css({top: 0,left: 0}).appendTo($('.original-parent'));
+        $('.dragging-card').detach().appendTo($('.original-parent'));
       }
       return !isValidMove;
     },
@@ -70,7 +74,7 @@ $( ".card" ).droppable({
   drop: function(event, ui) {
     createOriginCardID(ui.draggable);
     createDestinyCardID($(this));
-    $('.dragging-card').detach().css({top: 0,left: 0}).appendTo($(this).parent());
+    $('.dragging-card').detach().appendTo($(this).parent());
     addDroppableInOriginColumn();
     removeDroppableDestinyCard($(this));
     moveOriginToDestiny($(this), ui.draggable);
@@ -89,30 +93,22 @@ function removeDroppableDestinyCard(card) {
 function disableNotDroppableCards() {
   $('.card').droppable({ disabled: true });
   $('.feeder_line_column div.card:last-child').droppable({ disabled: false });
+  $('.product_line_column div.card:last-child').droppable({ disabled: false });
 }
-
-$(document).ready(function() {
-  disableNotDroppableCards();
-});
 
 $(".empty-column").droppable({
   drop: function(event, ui) {
     createOriginCardID(ui.draggable);
-    $('dragging-card').detach().css({top: 0,left: 0}).appendTo($(this));
-    if($("#origin_card_id").val()) {
-      originCard = $(".card-selected");
-      originCard.removeClass();
-      columnID = $("#destiny_column_id").val();
-      originCard.addClass("card card-selected product-line-card");
+    columnID = $("#destiny_column_id").val();
+    ui.draggable.addClass("product-line-card");
 
-      destinyColumnID = $("#destiny_column_id");
-      destinyColumnID.val($(this).attr('id'));
-      $(this).empty();
-      $(this).append(originCard);
+    destinyColumnID = $("#destiny_column_id");
+    destinyColumnID.val($(this).attr('id'));
+    $('dragging-card').detach().appendTo($(this));
+    //$(this).append(originCard);
 
-      $("#destiny").text(destinyColumnID.val());
-      //$(".edit_solitaire_game").submit();
-    }
+    $("#destiny").text(destinyColumnID.val());
+    //$(".edit_solitaire_game").submit();
   }
 });
 
@@ -143,7 +139,7 @@ function moveOriginToDestiny(destinyCard, originCard) {
     originCard.addClass("product-line-card");
   }
 
-  $(".edit_solitaire_game").submit();
+  //$(".edit_solitaire_game").submit();
 };
 
 function topMostCard(card)
