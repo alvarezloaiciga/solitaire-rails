@@ -70,7 +70,7 @@ $( ".card" ).droppable({
     removeDroppableDestinyCard($(this));
     moveOriginToDestiny(ui.draggable);
   }
-});
+}
 
 function enableDragAndDrop() {
   disableNotDroppableCards();
