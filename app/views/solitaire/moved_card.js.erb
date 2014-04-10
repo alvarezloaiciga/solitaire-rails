@@ -15,8 +15,8 @@ removeEmptyCardFromEmptyColumn(destiny_column);
         column.append("<%= escape_javascript(render partial: 'card', locals: { card: last_card }) %>")
       }
   <% else %>
+      column = $("#<%= object_id(@card_mover.origin_column)%>");
       if(!column.hasClass("empty-column")) {
-        column = $("#<%= object_id(@card_mover.origin_column)%>");
         column.addClass("empty-column");
         column.append("<%= escape_javascript image_tag("deck/empty.png") %>");
       }
