@@ -36,14 +36,14 @@ class ProductLineColumn < ActiveRecord::Base
     [card]
   end
 
-  def accept_move?(origin_card)
+  def accept_move?(origin_card, origin_column)
     destiny_card = cards_product_line_columns.last.try(:card)
     if destiny_card.nil? && !origin_card.nil?
       origin_card.value == 1
     elsif origin_card.nil?
       false
     else
-      destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit
+      destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit && origin_column.cards_from(origin_card).size == 1
     end
   end
 end

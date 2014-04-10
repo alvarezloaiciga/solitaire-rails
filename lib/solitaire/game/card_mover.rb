@@ -11,7 +11,7 @@ module Solitaire
       end
 
       def move_cards
-        if destiny_column.accept_move?(origin_card)
+        if destiny_column.accept_move?(origin_card, origin_column)
           move
           true
         else

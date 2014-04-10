@@ -22,7 +22,7 @@ class FeederLineColumn < ActiveRecord::Base
     end
   end
 
-  def accept_move?(origin_card)
+  def accept_move?(origin_card, origin_column)
     destiny_card = cards_feeder_line_columns.last.try(:card)
     if destiny_card.nil? && !origin_card.nil?
       origin_card.name == "K"
