@@ -5,5 +5,7 @@ card = $("#<%= object_id(@card_mover.origin_card) %>");
 <% cards.each do |car| %>
   column.append($("#<%= object_id(car) %>"));
 <% end %>
+destinyColumn = $("#<%= object_id(@card_mover.destiny_column) %>");
+addEmptyClassToDestinyColumn(destinyColumn);
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');
 setDragAndDropAfterState();

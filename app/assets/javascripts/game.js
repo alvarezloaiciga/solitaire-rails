@@ -35,7 +35,7 @@ var draggableOptions = {
   helper: function(event, ui) {
     $(this).parent().addClass('original-parent');
     selectDraggingCards($(this));
-    var draggingGroup = $('<div />', { "class": 'dragging-group feeder_line_column'});
+    var draggingGroup = $('<div />', { "class": 'dragging-group'});
     draggingGroup.appendTo($(this).parent());
     $('.dragging-card').detach().appendTo(draggingGroup);
     return draggingGroup;
@@ -49,7 +49,8 @@ var emptyColumnDroppableOptions = {
 
     destinyColumnID = $("#destiny_column_id");
     destinyColumnID.val($(this).attr('id'));
-    $('.dragging-card').detach().appendTo($('body'));
+    removeEmptyCardFromEmptyColumn($(this));
+    $('.dragging-card').detach().appendTo($(this));
 
     moveOriginToDestiny(ui.draggable);
   }
@@ -59,7 +60,7 @@ var cardDroppableOptions = {
   drop: function(event, ui) {
     createOriginCardID(ui.draggable);
     createDestinyCardID($(this));
-    $('.dragging-card').detach().appendTo($('body'));
+    $('.dragging-card').detach().appendTo($(this).parent());
     moveOriginToDestiny(ui.draggable);
   }
 };
@@ -157,6 +158,13 @@ function addEmptyClassToOriginColumn(originColumn) {
   if(originColumn.children().length == 1 && !originColumn.hasClass('train')) {
     originColumn.addClass('empty-column');
     originColumn.append($('<img />', { "alt": 'Empty', "src": '/assets/deck/empty.png' }));
+  }
+};
+
+function addEmptyClassToDestinyColumn(destinyColumn) {
+  if(destinyColumn.children().length == 0) {
+    destinyColumn.addClass('empty-column');
+    destinyColumn.append($('<img />', { "alt": 'Empty', "src": '/assets/deck/empty.png' }));
   }
 };
 
