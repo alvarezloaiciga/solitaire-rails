@@ -18,11 +18,9 @@ $(document).ready(function() {
 });
 
 var draggableOptions = {
+  revertDuration: 300,
   revert: function(isValidMove) {
-    if(!isValidMove) {
-      removeEmptyCardFromEmptyColumn($('.original-parent'));
-      $('.dragging-card').detach().appendTo($('.original-parent'));
-    }
+    $(this).data({ revert: !isValidMove });
     return !isValidMove;
   },
   start: function(event, ui) {
@@ -30,9 +28,15 @@ var draggableOptions = {
     addEmptyClassToOriginColumn($('.original-parent'));
   },
   stop: function(event, ui) {
+    if($(this).data("revert")) {
+      removeEmptyCardFromEmptyColumn($('.original-parent'));
+      $('.dragging-card').detach().appendTo($('.original-parent'));
+    }
+    $(this).removeData("revert");
     setDragAndDropAfterState();
   },
   helper: function(event, ui) {
+    $('.card').not('.card-hidden').draggable({ disabled: true });
     $(this).parent().addClass('original-parent');
     selectDraggingCards($(this));
     var draggingGroup = $('<div />', { "class": 'dragging-group'});
@@ -66,7 +70,7 @@ var cardDroppableOptions = {
 };
 
 function setDragAndDropAfterState() {
-  $('div.dragging-card').removeClass('dragging-card')
+  $('.dragging-card').removeClass('dragging-card')
   $('.last-card').removeClass('last-card');
   $('.original-parent').removeClass('original-parent');
   enableDragAndDrop();
@@ -80,6 +84,8 @@ function enableDragAndDrop() {
 
 function enableDraggableCards() {
   $( ".card" ).not(".card-hidden").draggable(draggableOptions);
+  $( ".card" ).not(".card-hidden").draggable({ disabled: true });
+  $( ".card" ).not(".card-hidden").draggable({ disabled: false });
 };
 
 function enableDroppableEmptyColumns() {
