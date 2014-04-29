@@ -34,10 +34,15 @@ class SolitaireController < ApplicationController
 
   def next_card
     @train = current_game.cards_train
-    @train.next_card!
-
-    respond_to do |f|
-      f.js {}
+    if @train.times == 1
+      @train.next_card!
+      respond_to do |f|
+        f.js {}
+      end
+    else
+      respond_to do |f|
+        f.js { render 'play_or_quit' }
+      end
     end
   end
 
@@ -53,4 +58,5 @@ class SolitaireController < ApplicationController
   def move
     @move ||= Solitaire::Game::MoveParser.new(@game, params)
   end
+
 end
