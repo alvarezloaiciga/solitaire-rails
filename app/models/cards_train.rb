@@ -43,10 +43,6 @@ class CardsTrain < ActiveRecord::Base
     [card]
   end
 
-  def last_card?
-    active_card_position >= cards.count-1
-  end
-
   private
   def next_active_card_position
     return 0 unless active_card_position
@@ -58,4 +54,7 @@ class CardsTrain < ActiveRecord::Base
     active_card_position + 1
   end
 
+  def last_card?
+    active_card_position >= cards.count-1
+  end
 end
