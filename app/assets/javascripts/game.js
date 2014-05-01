@@ -147,11 +147,13 @@ function moveOriginToDestiny(originCard,destinyCard) {
   $("#move-card-button").trigger('click');
 
   if(columnID.match(/feeder_line_column/)){
-    if (destinyCard.css('margin-bottom') != '-180px') { 
-      destinyCard.css('margin-bottom', '-180px');
+    var highest_margin_bottom = destinyCard.css('margin-bottom');
+
+    if (highest_margin_bottom != '-180px') { 
+      destinyCard.css('margin-bottom', parseInt(destinyCard.css('margin-bottom')) - 1);
     }
   }
-};
+}
 
 function topMostCard(card)
 {
