@@ -56,7 +56,7 @@ var emptyColumnDroppableOptions = {
     removeEmptyCardFromEmptyColumn($(this));
     $('.dragging-card').detach().appendTo($(this));
 
-    moveOriginToDestiny(ui.draggable);
+    moveOriginToDestiny(ui.draggable,$(this));
   }
 };
 
@@ -65,7 +65,7 @@ var cardDroppableOptions = {
     createOriginCardID(ui.draggable);
     createDestinyCardID($(this));
     $('.dragging-card').detach().appendTo($(this).parent());
-    moveOriginToDestiny(ui.draggable);
+    moveOriginToDestiny(ui.draggable,$(this));
   }
 };
 
@@ -137,7 +137,7 @@ function createOriginCardID(cardDiv) {
   originColumnID.val($('.original-parent').attr('id'));
 };
 
-function moveOriginToDestiny(originCard) {
+function moveOriginToDestiny(originCard,destinyCard) {
   columnID = $("#destiny_column_id").val();
 
   if(columnID.match(/product_line_column/)){
@@ -145,6 +145,12 @@ function moveOriginToDestiny(originCard) {
   }
 
   $("#move-card-button").trigger('click');
+
+  if(columnID.match(/feeder_line_column/)){
+    if (destinyCard.css('margin-bottom') != '-180px') { 
+      destinyCard.css('margin-bottom', '-180px');
+    }
+  }
 };
 
 function topMostCard(card)
