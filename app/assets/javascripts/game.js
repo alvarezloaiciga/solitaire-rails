@@ -149,8 +149,8 @@ function moveOriginToDestiny(originCard,destinyCard) {
   if(columnID.match(/feeder_line_column/)){
     var highest_margin_bottom = destinyCard.css('margin-bottom');
 
-    if (highest_margin_bottom == '-170px') { 
-      destinyCard.css('margin-bottom', '-158px');
+    if (highest_margin_bottom == '-209px') { 
+      destinyCard.css('margin-bottom', '-180px');
     }
   }
 }
