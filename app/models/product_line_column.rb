@@ -9,6 +9,10 @@ class ProductLineColumn < ActiveRecord::Base
     card_position = last_position
     cards.count.times do |card_index|
       card_position += 1
+      if cards[card_index].on_product_line == false
+        cards[card_index].on_product_line = true
+        cards[card_index].save
+      end
       cards_product_line_columns << CardsProductLineColumn.new(card: cards[card_index], position: last_position+card_position)
     end
     update(active_card_position: card_position - 1)
