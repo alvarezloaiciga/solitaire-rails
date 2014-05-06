@@ -4,4 +4,8 @@ class Card < ActiveRecord::Base
 
   has_many :cards_cards_trains
   has_many :cards_trains, through: :cards_cards_trains
+
+  def set_on_product_line
+  	update(on_product_line: true)
+  end
 end

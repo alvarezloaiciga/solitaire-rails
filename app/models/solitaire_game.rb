@@ -12,6 +12,21 @@ class SolitaireGame < ActiveRecord::Base
     init_cards_train
   end
 
+  def set_score(destiny_column)
+    case card_counter
+      when 1 .. 20
+        update(score: score + 8)
+      when 21 .. 40
+        update(score: score + 6)
+      when 41 .. 52
+        update(score: score + 4)
+    end
+  end
+
+  def set_counter
+    update(card_counter: card_counter + 1)
+  end
+
   private
   def init_feeder_line
     self.feeder_line = FeederLine.new
