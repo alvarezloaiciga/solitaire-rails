@@ -39,7 +39,7 @@ module Solitaire
         if card.on_product_line == false
           card.set_on_product_line
           game.set_counter
-          game.set_score(destiny_column)
+          game.set_score
         end  
       end
     end

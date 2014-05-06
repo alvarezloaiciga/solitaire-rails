@@ -52,7 +52,7 @@ class SolitaireController < ApplicationController
   end
 
   def card_mover
-    @card_mover ||= Solitaire::Game::CardMover.new(origin: move.origin, destiny: move.destiny)
+    @card_mover ||= Solitaire::Game::CardMover.new(game: @game, origin: move.origin, destiny: move.destiny)
   end
 
   def move

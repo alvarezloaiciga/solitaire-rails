@@ -12,7 +12,7 @@ class SolitaireGame < ActiveRecord::Base
     init_cards_train
   end
 
-  def set_score(destiny_column)
+  def set_score
     case card_counter
       when 1 .. 20
         update(score: score + 8)
