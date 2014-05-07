@@ -12,12 +12,20 @@ class SolitaireGame < ActiveRecord::Base
     init_cards_train
   end
 
-  def set_score(chips)
+  def increment_score(chips)
     update(score: score + chips)
   end
 
-  def set_counter
+  def decrement_score(chips)
+    update(score: score - chips)
+  end
+
+  def increment_counter
     update(card_counter: card_counter + 1)
+  end
+
+  def decrement_counter
+    update(card_counter: card_counter - 1)
   end
 
   def chips

@@ -52,4 +52,9 @@ class ProductLineColumn < ActiveRecord::Base
     card_column[0].won_chips = chips
     card_column[0].save
   end
+
+  def chips(card)
+    card_column = CardsProductLineColumn.where(product_line_column_id: id, card_id: card.id)
+    card_column[0].won_chips
+  end
 end
