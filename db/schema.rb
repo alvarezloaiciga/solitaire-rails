@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505193635) do
+ActiveRecord::Schema.define(version: 20140507191545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20140505193635) do
     t.string  "name"
     t.string  "suit"
     t.integer "value"
-    t.boolean "on_product_line", default: false
   end
 
   create_table "cards_cards_trains", force: true do |t|
