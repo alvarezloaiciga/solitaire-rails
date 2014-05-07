@@ -46,4 +46,10 @@ class ProductLineColumn < ActiveRecord::Base
       destiny_card.value + 1 == origin_card.value && destiny_card.suit == origin_card.suit && origin_column.cards_from(origin_card).size == 1
     end
   end
+
+  def set_won_chips(card, chips)
+    card_column = CardsProductLineColumn.where(product_line_column_id: id, card_id: card.id)
+    card_column[0].won_chips = chips
+    card_column[0].save
+  end
 end

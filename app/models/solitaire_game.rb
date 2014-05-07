@@ -12,19 +12,23 @@ class SolitaireGame < ActiveRecord::Base
     init_cards_train
   end
 
-  def set_score
-    case card_counter
-      when 1 .. 20
-        update(score: score + 8)
-      when 21 .. 40
-        update(score: score + 6)
-      when 41 .. 52
-        update(score: score + 4)
-    end
+  def set_score(chips)
+    update(score: score + chips)
   end
 
   def set_counter
     update(card_counter: card_counter + 1)
+  end
+
+  def chips
+    case card_counter
+      when 1 .. 20
+        8
+      when 21 .. 40
+        6
+      when 41 .. 52
+        4
+    end
   end
 
   private
