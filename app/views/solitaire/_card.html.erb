@@ -4,7 +4,8 @@
   </div>
 <% else %>
   <% klass ||= nil %>
-  <%= div_for card, class: klass do %>
+  <% last = last.nil? ? true : last %>
+  <%= div_for card, class: klass, style: "#{ last ? '' : 'margin-bottom: -190px'}" do %>
       <%= image_tag("deck/#{card.suit}/#{card.name}.png") %>
   <% end %>
 <% end %>

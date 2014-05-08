@@ -4,6 +4,7 @@
 
 <div id="header">
   <%= render partial: 'train' %>
+  Actual score: <%= @game.score %>
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
 
@@ -24,3 +25,4 @@
 <%= javascript_include_tag "//code.jquery.com/jquery-1.9.1.js", "//code.jquery.com/ui/1.10.2/jquery-ui.js" %>
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag "jquery.ui.touch-punch.min.js" %>
+
