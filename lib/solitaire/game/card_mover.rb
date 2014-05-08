@@ -24,9 +24,6 @@ module Solitaire
 
       def move
         cards_to_move = moving_cards
-        print "*********************\n"
-        print origin_column.inspect
-        print "*********************\n"
         if origin_column.class == ProductLineColumn
           decrement_score(cards_to_move)
         end
