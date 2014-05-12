@@ -4,6 +4,13 @@
 
 <div id="header">
   <%= render partial: 'train' %>
+  
+  <div id="movement">
+     Actual score: <span id="score">
+       <%= content_tag :div, class: "game", data: {score: @game.id} do %>
+       <% end %>
+     </span> 
+  </div>
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
 
@@ -17,10 +24,8 @@
 
 <%= render partial: 'feeder_line', locals: { feeder_line: @game.feeder_line } %>
 
-<div id="movement">
-  <span id="origin"></span> <span id="destiny"></span>
-</div>
-
 <%= javascript_include_tag "//code.jquery.com/jquery-1.9.1.js", "//code.jquery.com/ui/1.10.2/jquery-ui.js" %>
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag "jquery.ui.touch-punch.min.js" %>
+
+

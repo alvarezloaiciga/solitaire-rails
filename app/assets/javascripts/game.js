@@ -17,6 +17,23 @@ $(document).ready(function() {
   enableDragAndDrop();
 });
 
+function updateScore(id) {
+$.ajax( {
+  url: "/solitaire/"+ id +"/score", 
+  type: "GET", 
+  dataType: "json",
+  complete: function() {
+  },
+  success: function(data, textStatus, xhr)   {
+    $("#score").html( data )
+    $("#score").show('slow');
+  },
+  error: function() {
+    alert("Ajax Error !");
+  },
+});
+};
+
 var draggableOptions = {
   revertDuration: 300,
   revert: function(isValidMove) {
@@ -135,6 +152,10 @@ function createOriginCardID(cardDiv) {
 
   originCardID.val(cardDiv.attr('id'));
   originColumnID.val($('.original-parent').attr('id'));
+  
+  var game_id = $('.game').data('score')
+  //$("#score").text(score)
+  updateScore(game_id);
 };
 
 function moveOriginToDestiny(originCard,destinyCard) {
