@@ -3,7 +3,7 @@
     <% active_position = column.first_active_card_position %>
     <% column.cards_feeder_line_columns.order(:position).each do |card_feed| %>
       <% if card_feed.position >= active_position %>
-        <%= render partial: 'card', locals: { card: card_feed.card } %>
+        <%= render partial: 'card', locals: { card: card_feed.card, last: card_feed.position == column.cards_feeder_line_columns.map(&:position).max } %>
       <% else %>
         <%= render partial: 'card', locals: { card: :hidden } %>
       <% end %>
