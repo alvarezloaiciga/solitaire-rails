@@ -26,7 +26,7 @@ class FeederLineColumn < ActiveRecord::Base
     destiny_card = cards_feeder_line_columns.last.try(:card)
     if destiny_card.nil? && !origin_card.nil?
       origin_card.name == "K"
-    elsif origin_card.nil?
+    elsif origin_card.nil? || origin_column.is_a?(ProductLineColumn)
       false
     else
       destiny_red = RED_SUITS.include?(destiny_card.suit)

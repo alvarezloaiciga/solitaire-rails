@@ -34,10 +34,16 @@ class SolitaireController < ApplicationController
 
   def next_card
     @train = current_game.cards_train
+    if @train.times == 1
       @train.next_card!
       respond_to do |f|
         f.js {}
       end
+    else
+      respond_to do |f|
+        f.js { render 'play_or_quit' }
+      end
+    end
   end
 
   def score

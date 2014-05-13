@@ -15,6 +15,7 @@ $("#next-card-trigger").click(function(){
 
 $(document).ready(function() {
   enableDragAndDrop();
+  updateScoreCall();
 });
 
 function updateScore(id) {
@@ -22,11 +23,9 @@ $.ajax( {
   url: "/solitaire/"+ id +"/score", 
   type: "GET", 
   dataType: "json",
-  complete: function() {
-  },
   success: function(data, textStatus, xhr)   {
+   // alert(data);
     $("#score").html( data )
-    $("#score").show('slow');
   },
   error: function() {
     alert("Ajax Error !");
@@ -72,8 +71,8 @@ var emptyColumnDroppableOptions = {
     destinyColumnID.val($(this).attr('id'));
     removeEmptyCardFromEmptyColumn($(this));
     $('.dragging-card').detach().appendTo($(this));
-
     moveOriginToDestiny(ui.draggable,$(this));
+    //updateScore($('#game-id').attr('value'));
   }
 };
 
@@ -83,6 +82,7 @@ var cardDroppableOptions = {
     createDestinyCardID($(this));
     $('.dragging-card').detach().appendTo($(this).parent());
     moveOriginToDestiny(ui.draggable,$(this));
+   // updateScore($('#game-id').attr('value'));
   }
 };
 
@@ -152,10 +152,16 @@ function createOriginCardID(cardDiv) {
 
   originCardID.val(cardDiv.attr('id'));
   originColumnID.val($('.original-parent').attr('id'));
-  
-  var game_id = $('.game').data('score')
-  //$("#score").text(score)
-  updateScore(game_id);
+
+};
+
+var updateScoreCall = function(){
+  var game_id = $('#game-id').attr('value')
+  if(game_id){
+    console.log('updateScoreCall >> updatimg score');
+    updateScore(game_id);
+    console.log('updateScoreCall >> score updated');
+  }
 };
 
 function moveOriginToDestiny(originCard,destinyCard) {

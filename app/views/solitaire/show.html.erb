@@ -4,11 +4,9 @@
 
 <div id="header">
   <%= render partial: 'train' %>
+  <%= hidden_field_tag 'game-id', @game.id %>
   <div id="movement">
-     Actual score: <span id="score">
-       <%= content_tag :div, class: "game", data: {score: @game.id} do %>
-       <% end %>
-     </span> 
+     Actual score: <span id="score"></span> 
   </div>
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
