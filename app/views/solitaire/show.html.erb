@@ -5,12 +5,12 @@
 <div id="header">
   <%= render partial: 'train' %>
   <%= hidden_field_tag 'game-id', @game.id %>
-  <div id="movement">
-     Actual score: <span id="score"></span> 
-  </div>
+  
   <%= render partial: 'product_line', locals: { product_line: @game.product_line } %>
 </div>
-
+<div id="movement">
+     Actual score: <span id="score"></span> 
+  </div>
 <%= form_for @game, url: move_card_path, method: :post, remote: true, :html => {:class => 'move-card-form'} do |f| %>
   <%= hidden_field_tag "origin[card_id]" %>
   <%= hidden_field_tag "origin[column_id]" %>
