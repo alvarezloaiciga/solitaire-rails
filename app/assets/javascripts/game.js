@@ -24,7 +24,6 @@ $.ajax( {
   type: "GET", 
   dataType: "json",
   success: function(data, textStatus, xhr)   {
-   // alert(data);
     $("#score").html( data )
   },
   error: function() {
@@ -72,7 +71,6 @@ var emptyColumnDroppableOptions = {
     removeEmptyCardFromEmptyColumn($(this));
     $('.dragging-card').detach().appendTo($(this));
     moveOriginToDestiny(ui.draggable,$(this));
-    //updateScore($('#game-id').attr('value'));
   }
 };
 
@@ -82,7 +80,6 @@ var cardDroppableOptions = {
     createDestinyCardID($(this));
     $('.dragging-card').detach().appendTo($(this).parent());
     moveOriginToDestiny(ui.draggable,$(this));
-   // updateScore($('#game-id').attr('value'));
   }
 };
 
@@ -158,9 +155,7 @@ function createOriginCardID(cardDiv) {
 var updateScoreCall = function(){
   var game_id = $('#game-id').attr('value')
   if(game_id){
-    console.log('updateScoreCall >> updatimg score');
     updateScore(game_id);
-    console.log('updateScoreCall >> score updated');
   }
 };
 
