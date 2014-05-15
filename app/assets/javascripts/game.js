@@ -46,9 +46,9 @@ var draggableOptions = {
     if($(this).data("revert")) {
       removeEmptyCardFromEmptyColumn($('.original-parent'));
       $('.dragging-card').detach().appendTo($('.original-parent'));
+      setDragAndDropAfterState();
     }
     $(this).removeData("revert");
-    setDragAndDropAfterState();
   },
   helper: function(event, ui) {
     $('.card').not('.card-hidden').draggable({ disabled: true });
