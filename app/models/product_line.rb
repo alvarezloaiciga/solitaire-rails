@@ -8,4 +8,9 @@ class ProductLine < ActiveRecord::Base
       columns << column
     end
   end
+
+  def all_aces_up?
+    columns.joins(:cards).where(cards: { name: "A" }).size == 4
+  end
+
 end

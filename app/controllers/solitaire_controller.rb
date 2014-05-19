@@ -34,7 +34,7 @@ class SolitaireController < ApplicationController
 
   def next_card
     @train = current_game.cards_train
-    if @train.times == 1
+    if true#@train.times == 1
       @train.next_card!
       respond_to do |f|
         f.js {}
