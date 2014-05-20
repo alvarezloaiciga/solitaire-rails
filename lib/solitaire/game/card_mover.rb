@@ -41,8 +41,13 @@ module Solitaire
       def increment_score(card)
         game.increment_counter
         score = game.chips
-        score += 10 if game.product_line.all_aces_up?
-        #destiny_column.set_won_chips(card[0], score)
+        if game.all_aces_up == false
+          if game.product_line.all_aces_up?
+            score += 10 
+            game.all_aces_up = true
+            game.save
+          end
+        end
         game.increment_score(score)
       end
 
