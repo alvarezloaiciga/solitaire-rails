@@ -1,0 +1,60 @@
+<div id="pop_up">
+  <% if counter != 52 %>
+    <p class="title">Game Over!</p>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class= "pop_up_table">Chips Won</td>
+          <td><%= score %> chips</td>
+        </tr>
+        <% if aces %>
+  	      <tr>
+  	        <td class= "pop_up_table">Aces Bonus</td>
+  	        <td style="text-decoration:underline;">10 chips</td>
+  	      </tr>
+          <tr>
+            <td class= "pop_up_table">Total Chips Won</td>
+            <td><%= score + 10 %> chips</td>
+          </tr>
+        <% else %>
+          <tr>
+            <td class= "pop_up_table">Total Chips Won</td>
+            <td><%= score %> chips</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="title">Congratulation, Blowout!</p>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class= "pop_up_table">You've Won</td>
+          <td><%= score %> chips</td>
+        </tr>
+        <tr>
+          <td class= "pop_up_table">50% Bonus</td>
+          <td><%= (score * 0.5).to_i %> chips</td>
+        </tr>
+        <tr>
+          <td class= "pop_up_table">Aces Bonus</td>
+          <td style="text-decoration:underline;">10 chips</td>
+        </tr>
+        <tr>
+          <td class= "pop_up_table">Total Chips Won</td>
+          <td><%= (score + 10 + (score * 0.5)).to_i %> chips</td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+<p class="title">Would you like to play again?</p>
+<table class="table" style="border-style: hidden;">
+	<tbody>
+		<tr >
+			<td><%= button_to "Yes", { action: "new" }, method: :get %></td>
+   			<td><%= button_to "No", { action: "new" }, method: :get %></td>
+   		</tr>
+   </tbody>
+</table>
+</div>

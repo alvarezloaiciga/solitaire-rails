@@ -13,3 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+function updateScore(id) {
+$.ajax( {
+  url: "/solitaire/"+ id +"/score", 
+  type: "GET", 
+  dataType: "json",
+  success: function(data, textStatus, xhr)   {
+ 	$("#score").html( data.game );
+ 	$("#aces").html( data.aces );
+ 	$("#bet").html( data.bet );
+  },
+  error: function() {
+    alert("Ajax Error !");
+  },
+});
+};

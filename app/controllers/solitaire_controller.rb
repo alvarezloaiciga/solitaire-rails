@@ -34,7 +34,7 @@ class SolitaireController < ApplicationController
 
   def next_card
     @train = current_game.cards_train
-    if @train.times == 1
+    if true#@train.times == 1
       @train.next_card!
       respond_to do |f|
         f.js {}
@@ -48,8 +48,14 @@ class SolitaireController < ApplicationController
 
   def score
     @game = current_game
+    @bet = @game.bet
+    if @game.all_aces_up
+      @aces = 10
+    else
+      @aces = 0
+    end
     if request.xhr?
-      render :json => @game.score
+      render :json => { game: @game.score, aces: @aces, bet: @bet }
     end
   end
 

@@ -22,3 +22,11 @@
 <%= javascript_include_tag "//code.jquery.com/jquery-1.9.1.js", "//code.jquery.com/ui/1.10.2/jquery-ui.js" %>
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag "jquery.ui.touch-punch.min.js" %>
+
+<script>
+updateScore($('#game-id').attr('value'));
+</script>
+
+<div id="dialog-confirm" style="display: none" >
+	<%= render partial: "pop_up", locals: {score: @game.score, aces: @game.all_aces_up, counter: @game.card_counter} %>
+</div>

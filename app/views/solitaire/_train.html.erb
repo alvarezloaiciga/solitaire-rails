@@ -16,19 +16,22 @@
   <% end %>
 
   <div id = "rewarded_chips">
-    <div id="movement">
       <table id = "chips_awarded">
         <tbody>
           <tr>
-            <td class= "title_table_score">Bet</td>
-            <td>-52 chips</td>
+            <td class= "title_table_score">Total Chips</td>
+            <td>1080 chips</td>
           </tr>
           <tr>
-            <td class= "title_table_score">Chips</td>
-            <td><span id="score"></span> chips</td>
+            <td class= "title_table_score">Bet</td>
+            <td><span id="bet"></span> chips</td>
+          </tr>
+          <tr>
+            <td class= "title_table_score" style="background-color: #6ea92a;">Bonus</td>
+            <td><span id="aces"></span> chips</td>
           </tr>
         </tbody>
       </table>
-    </div>
   </div>
 </div>
+<span style="position: absolute; top: 130px;"><%= button_to "New game", { action: "new" }, method: :get %></span>

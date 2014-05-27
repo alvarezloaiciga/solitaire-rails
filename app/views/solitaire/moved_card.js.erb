@@ -26,18 +26,10 @@ removeEmptyCardFromEmptyColumn(destiny_column);
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');
 setDragAndDropAfterState();
 
-function updateScore(id) {
-$.ajax( {
-  url: "/solitaire/"+ id +"/score", 
-  type: "GET", 
-  dataType: "json",
-  success: function(data, textStatus, xhr)   {
-    $("#score").html( data )
-  },
-  error: function() {
-    alert("Ajax Error !");
-  },
-});
-};
-
 updateScore($('#game-id').attr('value'));
+
+<% if @game.card_counter == 52 %>
+  $("#dialog-confirm").empty();
+  $("#dialog-confirm").append("<%= escape_javascript(render partial: "pop_up", locals: {score: @game.score, aces: @game.all_aces_up, counter: @game.card_counter} )%>");
+  $("#dialog-confirm").load('pop_up.html').dialog({modal:true});
+<% end %>

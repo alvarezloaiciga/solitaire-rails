@@ -16,26 +16,14 @@ class SolitaireGame < ActiveRecord::Base
     update(score: score + chips)
   end
 
-  def decrement_score(chips)
-    update(score: score - chips)
-  end
-
   def increment_counter
     update(card_counter: card_counter + 1)
   end
 
-  def decrement_counter
-    update(card_counter: card_counter - 1)
-  end
-
   def chips
     case card_counter
-      when 1 .. 20
+      when 1 .. 52
         8
-      when 21 .. 40
-        6
-      when 41 .. 52
-        4
     end
   end
 

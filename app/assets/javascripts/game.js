@@ -18,20 +18,6 @@ $(document).ready(function() {
   updateScoreCall();
 });
 
-function updateScore(id) {
-$.ajax( {
-  url: "/solitaire/"+ id +"/score", 
-  type: "GET", 
-  dataType: "json",
-  success: function(data, textStatus, xhr)   {
-    $("#score").html( data )
-  },
-  error: function() {
-    alert("Ajax Error !");
-  },
-});
-};
-
 var draggableOptions = {
   revertDuration: 300,
   revert: function(isValidMove) {
