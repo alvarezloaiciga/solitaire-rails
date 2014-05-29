@@ -1,3 +1,5 @@
 $(function() {
-    $("#dialog-confirm").load('pop_up.html').dialog({modal:true});
+  $("#dialog-confirm").empty();
+  $("#dialog-confirm").append("<%= escape_javascript(render partial: "pop_up", locals: {score: @game.score, aces: @game.all_aces_up, counter: @game.card_counter} )%>");
+  $("#dialog-confirm").load('pop_up.html').dialog({modal:true});
   });

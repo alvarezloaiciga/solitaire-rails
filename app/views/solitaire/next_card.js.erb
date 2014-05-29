@@ -1,10 +1,16 @@
 train = $("#<%= object_id(@train) %>");
+trainTrigger = $("#next-card-trigger");
 <% active_card = @train.active_card %>
 <% if active_card.present? %>
   train.append("<%= escape_javascript(render partial: 'card', locals: { card: active_card } )%>");
+   <% if @train.last_card? %>
+	 trainTrigger.attr("src", "<%= escape_javascript(asset_path "deck/empty.png")%>");
+   <% end %>
 <% else %>
-  train.empty();
+  trainTrigger.attr("src", "<%= escape_javascript(asset_path "deck/back.png")%>");
+  train.empty(); 
 <% end %>
+
 enableDragAndDrop();
 
 $('.move-card-form :input').not(':checkbox, :submit').removeAttr('value');
