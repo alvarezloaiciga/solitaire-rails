@@ -8,6 +8,9 @@ trainTrigger = $("#next-card-trigger");
    <% end %>
 <% else %>
   trainTrigger.attr("src", "<%= escape_javascript(asset_path "deck/back.png")%>");
+  $("#dialog-confirm").append("<%= escape_javascript(render partial: "pop_up", locals: {score: @game.score, aces: @game.all_aces_up, counter: @game.card_counter} )%>");
+  $("#dialog-confirm").load('pop_up.html').dialog({modal:true});
+  $('#new_button').toggle('show')
   train.empty(); 
 <% end %>
 
