@@ -23,10 +23,6 @@
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag "jquery.ui.touch-punch.min.js" %>
 
-<div id='new_button'>
-  <%= button_to "New", solitaire_new_path, :method => "get" %>
-</div>
-
 <script>
 updateScore($('#game-id').attr('value'));
 </script>

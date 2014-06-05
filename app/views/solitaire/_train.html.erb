@@ -6,6 +6,11 @@
     <% end %>
   </div>
 
+  <div id='hidden_button'>
+    <%= button_to "New Game", solitaire_new_path, :method => "get" %>
+    <%= button_to "Quit Game", solitaire_new_path, :method => "get" %>
+  </div>
+
   <%= div_for @game.cards_train, class: "train" do %>
     <% cards = @game.cards_train.used_cards %>
     <% if cards.present? %>
@@ -16,21 +21,21 @@
   <% end %>
 
   <div id = "rewarded_chips">
-      <table id = "chips_awarded">
-        <tbody>
-          <tr>
-            <td class= "title_table_score">Total Chips</td>
-            <td>1080 chips</td>
-          </tr>
-          <tr>
-            <td class= "title_table_score">Bet</td>
-            <td><span id="bet"></span> chips</td>
-          </tr>
-          <tr>
-            <td class= "title_table_score" style="background-color: #6ea92a;">Bonus</td>
-            <td><span id="aces"></span> chips</td>
-          </tr>
-        </tbody>
-      </table>
+    <table id = "chips_awarded">
+      <tbody>
+        <tr>
+          <td class= "title_table_score">Total Chips</td>
+          <td>1080 chips</td>
+        </tr>
+        <tr>
+          <td class= "title_table_score">Bet</td>
+          <td><span id="bet"></span> chips</td>
+        </tr>
+        <tr>
+          <td class= "title_table_score" style="background-color: #6ea92a;">Bonus</td>
+          <td><span id="aces"></span> chips</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
